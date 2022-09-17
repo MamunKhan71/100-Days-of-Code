@@ -1,5 +1,6 @@
 import random
-import demo_data
-random_int = random.randint(1,100)
-print(random_int)
-print(demo_data.py)
+rand_int = random.randint(1,2)
+if rand_int == 1:
+    print("Head")
+else:
+    print("Tail")
