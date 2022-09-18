@@ -10,6 +10,3 @@ row = int(userInput[0])
 column = int(userInput[1])
 tr_rows[column-1][row-1] = "💰"
 print(f"{row1}\n{row2}\n{row3}\n")
-
-
-
