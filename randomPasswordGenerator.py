@@ -1,5 +1,4 @@
 import random
-
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -10,15 +9,17 @@ print("Welcome to PyPassword Generator")
 letterCount = int(input("How many letters password you like to generate\n: "))
 numberCount = int(input("How many numbers would you like \n: "))
 symbolCount = int(input("How many symbols would you like \n: "))
-passSaver = ""
+passSaver = []
 for num in range(0, letterCount):
     rand_char = random.choice(letters)
-    passSaver += rand_char
+    passSaver.append(rand_char)
 for num in range(0, numberCount):
     rand_num = random.choice(numBers)
-    passSaver += rand_num
+    passSaver.append(rand_num)
 for num in range(0, symbolCount):
     rand_sym = random.choice(symBols)
-    passSaver += rand_sym
+    passSaver.append(rand_sym)
 
-print(f"Your generated Password is : {passSaver}")
+random.shuffle(passSaver)
+genString = ''.join(passSaver)
+print(f"Randomly Generated Pass is : {genString}")
