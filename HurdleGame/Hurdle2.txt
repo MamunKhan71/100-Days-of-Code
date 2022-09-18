@@ -1,0 +1,21 @@
+def right():
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+def jump():
+    move()
+    turn_left()
+    move()
+    right()
+    right()
+def turn_round():
+    jump()
+    turn_left()    
+flag = 1
+while flag != 0:
+    if at_goal() == True:
+        flag = 0
+    else:
+        turn_round()
+

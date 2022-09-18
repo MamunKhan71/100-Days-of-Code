@@ -1,0 +1,16 @@
+def right():
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+def jump():
+    move()
+    turn_left()
+    move()
+    right()
+    right()
+def turn_round():
+    jump()
+    turn_left()    
+for num in range(0,6):
+    turn_round()

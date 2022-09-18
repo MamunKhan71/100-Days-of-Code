@@ -1,0 +1,19 @@
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+flag = 1
+while flag != 0:
+    if at_goal() == True:
+        flag = 0
+    elif front_is_clear() == True:
+        move()
+    else:
+        turn_left()
+        move()
+        turn_right()
+        turn_right()
+        turn_left()
+        
+
