@@ -8,8 +8,7 @@ print(f"{row1}\n{row2}\n{row3}\n")
 userInput = input("Please specify where you would like to put the treasure!\n: ")
 row = int(userInput[0])
 column = int(userInput[1])
-selected_row = tr_rows[column-1]
-selected_row[row-1] = "💰"
+tr_rows[column-1][row-1] = "💰"
 print(f"{row1}\n{row2}\n{row3}\n")
 
 
