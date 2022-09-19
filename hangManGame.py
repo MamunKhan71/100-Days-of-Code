@@ -32,7 +32,7 @@ for num in range(randLtr):
     blankLtr += "_"
 print(f"Guess The Word: {blankLtr}")
 while life != randLtr:
-    userInput = input(f"Enter Your Letter (Remaining Lives: {randLtr - life}): ")
+    userInput = input(f"Enter Your Letter (Remaining Lives: {randLtr - life}): ").lower()
     trig = 0
     for num in range(randLtr):
         if userInput == rand[num]:
