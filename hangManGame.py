@@ -10,7 +10,6 @@ rand = random.choice(letter)
 randLtr = len(rand)
 blankLtr = ""
 life = 0
-tri = int(0)
 trig = 0
 for num in range(randLtr):
     blankLtr += "_"
