@@ -1,17 +1,38 @@
+letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+          'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+          's', 't', 'u', 'v',
+          'w', 'x', 'y', 'z']
+
+
 def encrypt(message, shiftLetter):
+    cypher_text = ""
     for num in message:
-        num += shiftLetter
+        pos = letter.index(num)
+        new_pos = pos + shiftLetter
+        new_letter = letter[new_pos]
+        cypher_text += new_letter
+    return cypher_text
 
-    return message
 
+def decrypt(message, shiftLetter):
+    decypher_text = ""
+    for num in message:
+        pos = letter.index(num)
+        new_pos = pos - shiftLetter
+        new_letter = letter[new_pos]
+        decypher_text += new_letter
+    return decypher_text
 
-# def decrypt(message, shiftLetter):
-
-
-choice = input("Type \"encrypt\" to Encrypt the message \"decrypt\" to Decrypt the message \n: ").lower()
-if choice == "encrypt":
-    message = input("Enter Your Message \n:")
-    enc_msg = encrypt(message=message, shiftLetter=(input("Enter The Shift Number \n:")))
-    print(enc_msg)
-# elif choice == "decrypt":
-#     decrypt(message, int(input("Enter The Shift Number \n:")))
+userInput = input("Type encode to encrypt and decode to decrypt a message \n:").lower()
+encrypted_text = ""
+shiftNo = 0
+if userInput == "encode":
+    messageType = input("Type your message here: ").lower()
+    shiftNo = int(input("How many character shift you want? : "))
+    encrypted_text = encrypt(shiftLetter=shiftNo, message=messageType)
+    print(f"Your Encrypted Text is : {encrypted_text}")
+elif userInput == "decode":
+    messageType = input("Type your message here: ").lower()
+    shiftNo = int(input("How many character shift you want? : "))
+    decrypted_text = decrypt(message=messageType, shiftLetter=shiftNo)
+    print(f"Your Decrypted Text is : {decrypted_text}")
