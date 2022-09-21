@@ -45,6 +45,7 @@ while userChoice:
         value = div(numInput, numInput2)
     else:
         print("Invalid Operator Selected!")
+    print(f"{numInput} {operator} {numInput2} = {value}")
     userCc = input(f"Type y to continue with {value}, or type n to start a new calculation : ")
     if userCc == "y":
         preValue = value
