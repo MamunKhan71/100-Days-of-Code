@@ -1,8 +1,8 @@
 import random
+from art import blackJackLogo
 
 
 def deal_card():
-
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     randCard = random.choice(cards)
     return randCard
@@ -19,37 +19,58 @@ def calculate_Score(cards):
 
 def cardsCompare(userCards, ComputerCards):
     if calculate_Score(userCards) == calculate_Score(ComputerCards):
-        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - Its a draw")
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
         print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                               Its a draw")
+        print("────────────────────────────────────────────────────────────────────────")
+
     elif calculate_Score(userCards) == 0:
-        print(
-            f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - User has BlackJack - User "
-            f"Wins!")
+
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                     User has BlackJack - User Wins!")
+        print("────────────────────────────────────────────────────────────────────────")
+
     elif calculate_Score(ComputerCards) == 0:
         print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
-        print(
-            f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer has BlackJack - "
-            f"Computer Wins!")
-    elif calculate_Score(userCards) > 21:
-        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Busted!")
-        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Wins!")
-    elif calculate_Score(ComputerCards) > 21:
-        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Wins!")
-        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Busted!")
-    elif calculate_Score(userCards) > calculate_Score(ComputerCards):
-        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Wins!")
         print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                 Computer has BlackJack - Computer Wins!")
+        print("────────────────────────────────────────────────────────────────────────")
+    elif calculate_Score(userCards) > 21:
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                      User Busted! - Computer Wins!")
+        print("────────────────────────────────────────────────────────────────────────")
+    elif calculate_Score(ComputerCards) > 21:
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                      User Wins! - Computer Busted!")
+        print("────────────────────────────────────────────────────────────────────────")
+    elif calculate_Score(userCards) > calculate_Score(ComputerCards):
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                   User Has Maximum Score - User Wins!")
+        print("────────────────────────────────────────────────────────────────────────")
 
     elif calculate_Score(ComputerCards) > calculate_Score(userCards):
         print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
-        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Wins!")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+        print("────────────────────────────────────────────────────────────────────────")
+        print("                Computer Has Maximum Score - Computer Wins!")
+        print("────────────────────────────────────────────────────────────────────────")
 
 
 youPlay = True
 
 while youPlay:
-    choice = input("Do you want to play black jack(Y/N) : ")
+    choice = input("Do you want to play black jack ( y/n ) : ")
     if choice == "y" or "Y":
+        print(blackJackLogo)
         user_cards = []
         computer_cards = []
         is_game_over = False
@@ -62,12 +83,12 @@ while youPlay:
             userScore = calculate_Score(user_cards)
             computerScore = calculate_Score(computer_cards)
 
-            print(f"Your Cards: {user_cards}, current score: {userScore}")
-            print(f"Computer's First card: {computer_cards[0]}")
+            print(f"Your cards: {user_cards}, Current score: {userScore}")
+            print(f"Computer's first card: {computer_cards[0]}")
             if userScore == 0 or computerScore == 0 or userScore > 21:
                 is_game_over = True
             else:
-                userDeals = input("Type y to get another card, type n to pass: ")
+                userDeals = input("Type 'y' to get another card, Type n to pass: ")
                 if userDeals == "y":
                     user_cards.append(deal_card())
                     calculate_Score(user_cards)
