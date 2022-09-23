@@ -3,12 +3,16 @@ from art import blackJackLogo
 
 
 def deal_card():
+    """The deal_card function deals with generating new random card from the list everytime it's called"""
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     randCard = random.choice(cards)
     return randCard
 
 
 def calculate_Score(cards):
+    """The calculate_Score function is responsible for calculating the all the cards in a list by checking
+    whether a user or computer has blackJack or not. This function is also responsible for replacing Ace
+    when its needed!"""
     if sum(cards) == 21 and len(cards) == 2:
         return 0
     if 11 in cards and sum(cards) > 21:
@@ -18,6 +22,7 @@ def calculate_Score(cards):
 
 
 def cardsCompare(userCards, ComputerCards):
+    """The cardsCompare function compares both user cards and computer cards and print a final result!"""
     if calculate_Score(userCards) == calculate_Score(ComputerCards):
         print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
         print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
