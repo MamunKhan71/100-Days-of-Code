@@ -1,33 +1,31 @@
-# Number Guessing Game Objectives:
-
-# Include an ASCII art logo.
-# Allow the player to submit a guess for a number between 1 and 100.
-# Check user's guess against actual answer. Print "Too high." or "Too low." depending on the user's answer.
-# If they got the answer correct, show the actual answer to the player.
-# Track the number of turns remaining.
-# If they run out of turns, provide feedback to the player.
-# Include two different difficulty levels (e.g., 10 guesses in easy mode, only 5 guesses in hard mode).
 import random
+from art import numberGuessingGameLogo
 
+print(numberGuessingGameLogo)
 computerGuess = random.randint(1, 100)
 noOfAttempts = 0
-gameLevel = int(input("Choose your difficulty level : \n1.Easy \n2.Hard \n: "))
+gameLevel = int(input("█░ Choose your difficulty level \n1.Easy \n2.Hard \n: "))
 if gameLevel == 1:
-    noOfAttempts = 9
+    noOfAttempts = 10
 elif gameLevel == 2:
-    noOfAttempts = 4
+    noOfAttempts = 5
 while noOfAttempts != 0:
-    userGuess = int(input("Enter your guess: "))
+    userGuess = int(input("█░ Enter your guess: "))
     if userGuess == computerGuess:
-        print("Congratulations! You win!")
+        print("+----------------------------------+---------+------------------------+----------------+")
+        print("|                             Congratulations! You Win!                                |")
+        print("+----------------------------------+---------+------------------------+----------------+")
         break
     elif userGuess > computerGuess:
-        print("Number is too high - Select lower number")
-        print(f"Remaining Attempts ({noOfAttempts+1})")
+        print("+----------------------------------+---------+------------------------+----------------+")
+        print("|                     Number is too high - Select lower number                         |")
+        print(f"|                         ─── ∙ Remaining Attempts {noOfAttempts-1} ∙ ──                              |")
+        print("+----------------------------------+---------+------------------------+----------------+")
     elif userGuess < computerGuess:
-        print("Number is too low - Select higher number")
-        print(f"Remaining Attempts ({noOfAttempts+1})")
+        print("+----------------------------------+---------+------------------------+----------------+")
+        print("|                    Number is too low  - Select Higher number                         |")
+        print(f"|                         ─── ∙ Remaining Attempts {noOfAttempts-1} ∙ ──                              |")
+        print("+----------------------------------+---------+------------------------+----------------+")
     noOfAttempts -= 1
-if gameLevel == 0:
-    print("Game over! You have used all of your possible attempts!")
-
+if noOfAttempts == 0:
+    print("█░ █░ █░ █░ █░  Game over! You have used all of your possible attempts!   ░█ ░█ ░█ ░█ ░█")
