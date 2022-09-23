@@ -12,7 +12,7 @@ def deal_card():
 def calculate_Score(cards):
     """The calculate_Score function is responsible for calculating the all the cards in a list by checking
     whether a user or computer has blackJack or not. This function is also responsible for replacing Ace
-    when its needed!"""
+    when it's needed!"""
     if sum(cards) == 21 and len(cards) == 2:
         return 0
     if 11 in cards and sum(cards) > 21:
