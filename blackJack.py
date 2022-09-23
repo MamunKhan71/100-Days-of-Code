@@ -42,6 +42,7 @@ def userCardChoice(randUsr, userSum):
         userSum = sum(randUsr)
         return userSum
     else:
+        print()
 
 
 print(blackJackLogo)
@@ -60,3 +61,4 @@ else:
     else:
         newUserSum = userCardChoice(randUsr, usrSum)
         bustCheck(randUsr, newUserSum)
+
