@@ -1,64 +1,86 @@
-from art import blackJackLogo
 import random
 
 
-def randNumMaker():
-    new_randVal = []
-    for num in range(0, 2):
-        new_randVal.append(random.randint(1, 11))
-    return new_randVal
+def deal_card():
+
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    randCard = random.choice(cards)
+    return randCard
 
 
-def replace_values(list_to_replace, item_to_replace, item_to_replace_with):
-    return [item_to_replace_with if item == item_to_replace else item for item in list_to_replace]
+def calculate_Score(cards):
+    if sum(cards) == 21 and len(cards) == 2:
+        return 0
+    if 11 in cards and sum(cards) > 21:
+        cards.remove(11)
+        cards.append(1)
+    return sum(cards)
 
 
-def blackJackCheck(randUsrs):
-    i = 0
-    while i < 2:
-        if randUsrs.__contains__(11) and randUsrs.__contains__(10):
-            return True
-        else:
-            return False
+def cardsCompare(userCards, ComputerCards):
+    if calculate_Score(userCards) == calculate_Score(ComputerCards):
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - Its a draw")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+    elif calculate_Score(userCards) == 0:
+        print(
+            f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - User has BlackJack - User "
+            f"Wins!")
+    elif calculate_Score(ComputerCards) == 0:
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
+        print(
+            f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer has BlackJack - "
+            f"Computer Wins!")
+    elif calculate_Score(userCards) > 21:
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Busted!")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Wins!")
+    elif calculate_Score(ComputerCards) > 21:
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Wins!")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Busted!")
+    elif calculate_Score(userCards) > calculate_Score(ComputerCards):
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)} - User Wins!")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)}")
+
+    elif calculate_Score(ComputerCards) > calculate_Score(userCards):
+        print(f"You have {userCards}, and Score: {calculate_Score(userCards)}")
+        print(f"Computer has {computer_cards}, and Score: {calculate_Score(computer_cards)} - Computer Wins!")
 
 
-def bustCheck(randUsrs, usrSum1):
-    if usrSum1 > 21:
-        if randUsrs.__contains__(11):
-            newVal = randUsrs
-            replace_values(newVal, 11, 1)
-            newSum = sum(newVal)
-            if newSum > 21:
-                return 1
+youPlay = True
+
+while youPlay:
+    choice = input("Do you want to play black jack(Y/N) : ")
+    if choice == "y" or "Y":
+        user_cards = []
+        computer_cards = []
+        is_game_over = False
+
+        for _ in range(2):
+            user_cards.append(deal_card())
+            computer_cards.append(deal_card())
+
+        while not is_game_over:
+            userScore = calculate_Score(user_cards)
+            computerScore = calculate_Score(computer_cards)
+
+            print(f"Your Cards: {user_cards}, current score: {userScore}")
+            print(f"Computer's First card: {computer_cards[0]}")
+            if userScore == 0 or computerScore == 0 or userScore > 21:
+                is_game_over = True
             else:
-                return 0
+                userDeals = input("Type y to get another card, type n to pass: ")
+                if userDeals == "y":
+                    user_cards.append(deal_card())
+                    calculate_Score(user_cards)
+                else:
+                    is_game_over = True
+        shouldPlay = True
 
+        while shouldPlay:
+            if sum(computer_cards) < 17:
+                computer_cards.append(deal_card())
+            else:
+                shouldPlay = False
 
-def userCardChoice(randUsr, userSum):
-    userChoice = input("Do you want to get another Card? (Y/N) : ")
-    if userChoice == "Y":
-        newRand = random.randint(1, 11)
-        randUsr.append(newRand)
-        userSum = sum(randUsr)
-        return userSum
+        cardsCompare(user_cards, computer_cards)
     else:
-        print()
-
-
-print(blackJackLogo)
-randUsr = randNumMaker()
-usrSum = sum(randUsr)
-randCom = randNumMaker()
-comSum = randCom[0] + randCom[1]
-if blackJackCheck(randCom):
-    print(f"The Computer Has BlackJack {randCom[0]} and {randCom[1]} : Computer Wins")
-elif blackJackCheck(randUsr):
-    print(f"The User Has BlackJack {randUsr[0]} and {randUsr[1]} : User Wins")
-else:
-    bustChecker = bustCheck(randUsr, usrSum)
-    if bustChecker == 1:
-        print("You are busted! You Loose!")
-    else:
-        newUserSum = userCardChoice(randUsr, usrSum)
-        bustCheck(randUsr, newUserSum)
-
+        youPlay = False
