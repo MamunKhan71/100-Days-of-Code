@@ -1,8 +1,15 @@
+import re
+from webbrowser import get
+
+
 def resources(userCh):
     global resourcesDirectory
-    print(resourcesDirectory[userCh].values())
-
-
+    newRsDct = resourcesDirectory[userCh]
+    print(resourcesDirectory[0].get("water") - resourcesDirectory[1].get("water"))
+    for keys,values in resourcesDirectory:
+        
+    
+    
 userChoice = input("What would you like? (espresso/latte/cappuccino) : ")
 resourcesDirectory = [
     {
