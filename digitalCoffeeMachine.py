@@ -1,5 +1,6 @@
-def resources(resDec,userCh):
-
+def resources(userCh):
+    global resourcesDirectory
+    print(resourcesDirectory[userCh].values())
 
 
 userChoice = input("What would you like? (espresso/latte/cappuccino) : ")
@@ -32,13 +33,13 @@ resourcesDirectory = [
 ]
 match userChoice:
     case "espresso":
-        resources(resDec=resourcesDirectory,userCh=1)
+        resources(userCh=int(1))
     case "latte":
-        resources(resDec=resourcesDirectory, userCh=2)
+        resources(userCh=int(2))
     case "cappuccino":
-        resources(resDec=resourcesDirectory, userCh=3)
+        resources(userCh=int(3))
     case "off":
         print("Machine is in maintenance mode. Turning off!")
         exit(0)
     case "report":
-        resources(resDec=resourcesDirectory, userCh=0)
+        resources(userCh=int(0))
