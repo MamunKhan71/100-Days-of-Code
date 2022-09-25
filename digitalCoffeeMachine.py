@@ -39,12 +39,25 @@ def coinProcessor(usrDirectory, quate, dim, nickle, pennie):
     pennies = 0.01
     total_money = float(quater + dimes + nickles + pennies)
     req_money = newDir["money"]
-    print(req_money)
+    ttlWtr = int(resourcesDirectory[0].get("water")) - int(newDir.get("water"))
+    ttlMlk = int(resourcesDirectory[0].get("milk")) - int(newDir.get("milk"))
+    ttlCfe = int(resourcesDirectory[0].get("coffee")) - int(newDir.get("coffee"))
     if req_money < total_money:
-        print(f"Access Granted : You have : {total_money}, Required: {req_money} ")
+        print(f"Access Granted : You have : {total_money:.2f}, Required: {req_money} ")
         print(f"Here is ${total_money - req_money:.2f} in change")
+        resourcesDirectory[0].get("water") - newDir.get("water")
+        resourcesDirectory[0].get("milk") - newDir.get("milk")
+        resourcesDirectory[0].get("coffee") - newDir.get("coffee")
+        up_dict = {"water": ttlWtr}
+        up_dict2 = {"milk": ttlMlk}
+        up_dict3 = {"coffee": ttlCfe}
+        resourcesDirectory[0].update(up_dict)
+        resourcesDirectory[0].update(up_dict2)
+        resourcesDirectory[0].update(up_dict3)
+        for key, value in resourcesDirectory[0].items():
+            print(f"{key} : ${value}")
     else:
-        print(f"Insufficient balance : You have : {total_money}, Required: {req_money} ")
+        print(f"Insufficient balance : You have : {total_money:.2f}, Required: {req_money} ")
 
 
 def reportGen():
@@ -62,36 +75,39 @@ def resources(userCh):
     oldRsDct = resourcesDirectory[0]
     newRsDct = resourcesDirectory[userCh].copy()
     newRsDct.popitem()
-    # print(resourcesDirectory[0].get("water") - resourcesDirectory[1].get("water"))
+    trig = 0
     for keys in newRsDct:
         if oldRsDct.get(keys) > newRsDct.get(keys):
-            print("Available")
-            quater = float(input("Quarter : "))
-            dimes = float(input("Dimes : "))
-            nickles = float(input("Nickles : "))
-            pennies = float(input("Pennies : "))
-            coinProcessor(int(userCh), quater, dimes, nickles, pennies)
-
+            continue
         else:
             if newRsDct.get("water") > oldRsDct.get("water"):
                 print("Not Enough Water")
+                trig = 1
             if newRsDct.get("milk") > oldRsDct.get("milk"):
                 print("Not Enough milk")
+                trig = 1
             if newRsDct.get("coffee") > oldRsDct.get("coffee"):
                 print("Not Enough coffee")
+                trig = 1
+    if trig == 0:
+        quater = float(input("Quarter : "))
+        dimes = float(input("Dimes : "))
+        nickles = float(input("Nickles : "))
+        pennies = float(input("Pennies : "))
+        coinProcessor(int(userCh), quater, dimes, nickles, pennies)
 
 
-userChoice = input("What would you like? (espresso/latte/cappuccino) : ")
-
-match userChoice:
-    case "espresso":
-        resources(userCh=int(1))
-    case "latte":
-        resources(userCh=int(2))
-    case "cappuccino":
-        resources(userCh=int(3))
-    case "off":
-        print("Machine is in maintenance mode. Turning off!")
-        exit(0)
-    case "report":
-        reportGen()
+while True:
+    userChoice = input("What would you like? (espresso/latte/cappuccino) : ")
+    match userChoice:
+        case "espresso":
+            resources(userCh=int(1))
+        case "latte":
+            resources(userCh=int(2))
+        case "cappuccino":
+            resources(userCh=int(3))
+        case "off":
+            print("Machine is in maintenance mode. Turning off!")
+            exit(0)
+        case "report":
+            reportGen()
