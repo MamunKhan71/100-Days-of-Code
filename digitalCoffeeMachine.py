@@ -2,12 +2,20 @@ import re
 from webbrowser import get
 
 
-def coinProcessor(quate, dim, nickle, pennie):
+def coinProcessor(usrDirectory, quate, dim, nickle, pennie):
+    global resourcesDirectory
+    newDir = resourcesDirectory[usrDirectory]
     quater = quate * 0.25
     dimes = dim * 0.10
     nickles = nickle * 0.05
     pennies = 0.01
     total_money = quater + dimes + nickles + pennies
+    req_money = newDir.get("money")
+    if req_money < total_money:
+        print(f"Access Granted : You have : {total_money}, Required: {req_money} ")
+        print(f"Here is ${total_money - req_money:.2f} in change")
+    else:
+        print(f"Insufficient balance : You have : {total_money}, Required: {req_money} ")
 
 
 def reportGen():
@@ -24,10 +32,17 @@ def resources(userCh):
     global resourcesDirectory
     oldRsDct = resourcesDirectory[0]
     newRsDct = resourcesDirectory[userCh]
+    newRsDct.popitem()
     # print(resourcesDirectory[0].get("water") - resourcesDirectory[1].get("water"))
     for keys in newRsDct:
         if oldRsDct.get(keys) > newRsDct.get(keys):
             print("Available")
+            quater = float(input("Quarter : "))
+            dimes = float(input("Dimes : "))
+            nickles = float(input("Nickles : "))
+            pennies = float(input("Pennies : "))
+            coinProcessor(int(userCh), quater, dimes, nickles, pennies)
+
         else:
             if newRsDct.get("water") > oldRsDct.get("water"):
                 print("Not Enough Water")
@@ -43,11 +58,11 @@ resourcesDirectory = [
         "water": 250,
         "milk": 250,
         "coffee": 100,
-        "money": 10,
+        "money": 0,
     },
     {
-        "water": 350,
-        "milk": 350,
+        "water": 100,
+        "milk": 100,
         "coffee": 30,
         "money": 3.5,
     },
