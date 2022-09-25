@@ -12,15 +12,15 @@ while loopBreaker:
     print(f"Compare A: {randValue1['name']}, a {randValue1['description']}, from {randValue1['country']}.")
     print(heightWeightLogoVs)
     print(f"Against B: {randValue2['name']}, a {randValue2['description']}, from {randValue2['country']}.")
-    userChoice = input("Who has more followers? Type 'A' or 'B': ")
-    if userChoice == 'A' or 'a':
+    userChoice = input("Who has more followers? Type 'A' or 'B': ").upper()
+    if userChoice == 'A':
         if randValue1['follower_count'] > randValue2['follower_count']:
             scoreCount += 1
             print(f"You're right! Current score: {scoreCount}.")
         else:
             print(f"Sorry, that's wrong. Final score: {scoreCount}")
             break
-    elif userChoice == 'B' or 'b':
+    elif userChoice == 'B':
         if randValue2['follower_count'] > randValue1['follower_count']:
             scoreCount += 1
             print(f"You're right! Current score: {scoreCount}.")
