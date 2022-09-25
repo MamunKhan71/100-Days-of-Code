@@ -9,7 +9,7 @@ resourcesDirectory = [
         "money": 0,
     },
     {
-        "water": 100,
+        "water": 50,
         "milk": 100,
         "coffee": 30,
         "money": 3.5,
@@ -43,6 +43,7 @@ def coinProcessor(usrDirectory, quate, dim, nickle, pennie):
     ttlMlk = int(resourcesDirectory[0].get("milk")) - int(newDir.get("milk"))
     ttlCfe = int(resourcesDirectory[0].get("coffee")) - int(newDir.get("coffee"))
     if req_money < total_money:
+        ttlMny = int(resourcesDirectory[0].get("money")) + req_money
         print(f"Access Granted : You have : {total_money:.2f}, Required: {req_money} ")
         print(f"Here is ${total_money - req_money:.2f} in change")
         resourcesDirectory[0].get("water") - newDir.get("water")
@@ -51,11 +52,17 @@ def coinProcessor(usrDirectory, quate, dim, nickle, pennie):
         up_dict = {"water": ttlWtr}
         up_dict2 = {"milk": ttlMlk}
         up_dict3 = {"coffee": ttlCfe}
+        up_dict4 = {"money": ttlMny}
+
         resourcesDirectory[0].update(up_dict)
         resourcesDirectory[0].update(up_dict2)
         resourcesDirectory[0].update(up_dict3)
+        resourcesDirectory[0].update(up_dict4)
         for key, value in resourcesDirectory[0].items():
-            print(f"{key} : ${value}")
+            if key != "money":
+                print(f"{key} : {value}")
+            else:
+                print(f"{key} : ${value}")
     else:
         print(f"Insufficient balance : You have : {total_money:.2f}, Required: {req_money} ")
 
