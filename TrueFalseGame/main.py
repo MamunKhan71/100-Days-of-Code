@@ -8,5 +8,6 @@ print("You need to select true(1) or false(0)")
 inpt1 = input("Q: ")
 inpt2 = input("A: ")
 newQ = Question(inpt1, inpt2)
+print("Test")
 
 
