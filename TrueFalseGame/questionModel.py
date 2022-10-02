@@ -14,6 +14,7 @@ class Question:
             choice = "False"
         if choice == answer:
             print("Correct Answer!")
+            return True
         else:
             print("Wrong Answer!")
             return False

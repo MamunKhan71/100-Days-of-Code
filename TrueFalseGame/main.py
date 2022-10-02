@@ -17,4 +17,4 @@ while questionCount != quizLen:
     if validity:
         correctAnsCount += 1
     questionCount += 1
-print(f"Test Finished - Your Score is : {correctAnsCount}")
+print(f"Test Finished - Your Score is : {correctAnsCount} out of {quizLen}")
