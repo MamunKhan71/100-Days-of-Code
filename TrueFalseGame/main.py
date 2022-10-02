@@ -12,7 +12,7 @@ correctAnsCount = 0
 quizLen = len(questions)
 while questionCount != quizLen:
     question = questions[questionCount]
-    actualAns = question["answer"]
+    actualAns = question["correct_answer"]
     validity = newModel.questionValidator(question, actualAns)
     if validity:
         correctAnsCount += 1
