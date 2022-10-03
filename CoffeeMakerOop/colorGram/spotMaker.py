@@ -2,6 +2,8 @@ import colorgram
 import random
 import turtle as trL
 
+trL.speed(100)
+trL.penup()
 trL.colormode(255)
 colList = []
 colors = colorgram.extract('image.png', 10)
@@ -29,21 +31,22 @@ def positionSetter(posValue, headingAngle, forwardValue):
 
 
 def dotPrinter(noOfDotsEach, dotSize, forwardValue):
-    for _ in range(noOfDotsEach):
+    for dots in range(1, noOfDotsEach + 1):
+        print(dots)
         trL.color(random.choice(colLists))
         trL.dot(dotSize)
         trL.forward(forwardValue)
+        if dots % 10 == 0:
+            trL.seth(90)
+            trL.forward(forwardValue)
+            trL.seth(180)
 
-    trL.seth(90)
-    trL.forward(forwardValue)
-    trL.seth(180)
-    for _ in range(noOfDotsEach):
-        trL.forward(forwardValue)
-    trL.seth(0)
+            for _ in range(10):
+                trL.forward(forwardValue)
+            trL.seth(0)
+    trL.hideturtle()
 
 
 positionSetter(7, 225, 50)
-for _ in range(10):
-    dotPrinter(10, 20, 50)
-
+dotPrinter(100, 20, 50)
 trL.exitonclick()
