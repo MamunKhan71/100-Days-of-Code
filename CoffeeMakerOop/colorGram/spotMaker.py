@@ -16,5 +16,6 @@ colLists = [(239, 243, 246), (243, 236, 241), (211, 136, 119), (42, 21, 13), (2,
             (173, 158, 39)]
 trL.color(random.choice(colLists))
 trL.dot(15)
+trL.
 
 trL.exitonclick()
