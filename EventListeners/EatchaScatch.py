@@ -24,12 +24,10 @@ def move_clockwise():
 
 def clearScreen():
     global headings
-    jenny.clear()
     headings = 0
-    jenny.seth(headings)
+    jenny.clear()
     jenny.penup()
-    jenny.setx(0.00)
-    jenny.sety(0.00)
+    jenny.home()
     jenny.pendown()
 
 
