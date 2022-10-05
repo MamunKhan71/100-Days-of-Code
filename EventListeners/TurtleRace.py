@@ -42,7 +42,4 @@ while isRaceOn:
                 print(f"You Loose! The Winning Turtle is : {winningColor}")
         randomNum = random.randint(1, 10)
         ttRle.forward(randomNum)
-
-
-
 screen.exitonclick()
