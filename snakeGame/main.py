@@ -10,10 +10,10 @@ screen.title("Snake Game")
 newSnake = Snake()
 
 screen.listen()
-screen.onkey(newSnake.up, "up")
-screen.onkey(newSnake.down, "down")
-screen.onkey(newSnake.left, "left")
-screen.onkey(newSnake.right, "right")
+screen.onkey(newSnake.up, "Up")
+screen.onkey(newSnake.down, "Down")
+screen.onkey(newSnake.left, "Left")
+screen.onkey(newSnake.right, "Right")
 gameIsOn = True
 while gameIsOn:
     screen.update()
