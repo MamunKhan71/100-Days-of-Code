@@ -31,10 +31,8 @@ while gameIsOn:
         screen.bgcolor("black")
         scoreboards.gameOver()
         gameIsOn = False
-    for seg in newSnake.turtles:
-        if seg == newSnake.head:
-            pass
-        elif newSnake.head.distance(seg) < 10:
+    for seg in newSnake.turtles[1:]:
+        if newSnake.head.distance(seg) < 10:
             gameIsOn = False
             screen.clear()
             screen.bgcolor("black")

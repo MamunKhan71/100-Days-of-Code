@@ -1,23 +1,5 @@
-class Animal:
-    def __init__(self):
-        self.eyes = 2
+# python slicing
 
-    def breathe(self):
-        print("Inhale - Exhale")
+a = ["1", "2", "3", "4", "5", "6", "7"]
 
-
-class Fish(Animal):
-    def __init__(self):
-        super().__init__()
-
-    def swim(self):
-        print("Moving in water")
-
-    def breathe(self):
-        super().breathe()
-        print("Breathing under water")
-
-
-nemo = Fish()
-nemo.swim()
-nemo.breathe()
+print(a[::-1])
