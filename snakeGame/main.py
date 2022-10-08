@@ -29,7 +29,14 @@ while gameIsOn:
     elif newSnake.head.xcor() <= -280 or newSnake.head.xcor() >= 280 or newSnake.head.ycor() <= -280 or newSnake.head.ycor() >= 280:
         screen.clear()
         screen.bgcolor("black")
-        scoreboards.screenClear()
+        scoreboards.gameOver()
         gameIsOn = False
-
+    for seg in newSnake.turtles:
+        if seg == newSnake.head:
+            pass
+        elif newSnake.head.distance(seg) < 10:
+            gameIsOn = False
+            screen.clear()
+            screen.bgcolor("black")
+            scoreboards.gameOver()
 screen.exitonclick()
