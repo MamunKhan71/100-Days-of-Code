@@ -26,3 +26,9 @@ class Scoreboard(Turtle):
         self.goto(0.00, 0.00)
         self.color("red")
         self.write(arg=f"Game Over!", move=False, align="Center", font=FONT)
+        self.finalScore()
+
+    def finalScore(self):
+        self.goto(x=.00, y=-30.00)
+        self.color("white")
+        self.write(arg=f"Final Score - {self.score}", move=False, align="Center", font=FONT)

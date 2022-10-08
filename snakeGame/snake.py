@@ -7,6 +7,7 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
     def __init__(self):
         self.turtles = []
@@ -15,11 +16,17 @@ class Snake:
 
     def create_snake(self):
         for pos in STARTPOSITION:
-            newTurtles = Turtle("square")
-            newTurtles.color("white")
-            newTurtles.penup()
-            newTurtles.goto(pos)
-            self.turtles.append(newTurtles)
+            self.snake_adder(pos)
+
+    def snake_adder(self, pos):
+        newTurtles = Turtle("square")
+        newTurtles.color("white")
+        newTurtles.penup()
+        newTurtles.goto(pos)
+        self.turtles.append(newTurtles)
+
+    def snake_extend(self):
+        self.snake_adder(self.turtles[-1].position())
 
     def move(self):
         for ttl_num in range(len(self.turtles) - 1, 0, -1):
