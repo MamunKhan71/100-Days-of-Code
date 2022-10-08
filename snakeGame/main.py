@@ -25,7 +25,10 @@ while gameIsOn:
     if newSnake.head.distance(food) < 15:
         food.randPos()
         scoreboards.scoreIncrease()
-    elif newSnake.head.xcor() >= 280 or newSnake.head.ycor() >= 280:
-        print("Game Over!")
+    elif newSnake.head.xcor() <= -280 or newSnake.head.xcor() >= 280 or newSnake.head.ycor() <= -280 or newSnake.head.ycor() >= 280:
+        screen.clear()
+        screen.bgcolor("black")
+        scoreboards.screenClear()
+        break
 
 screen.exitonclick()
