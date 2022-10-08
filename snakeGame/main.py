@@ -24,5 +24,6 @@ while gameIsOn:
     newSnake.move()
     if newSnake.head.distance(food) < 15:
         food.randPos()
+        scoreboards.scoreIncrease()
 
 screen.exitonclick()
