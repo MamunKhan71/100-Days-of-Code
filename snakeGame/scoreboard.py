@@ -22,7 +22,7 @@ class Scoreboard(Turtle):
         self.score += 1
         self.scoreUpdater()
 
-    def screenClear(self):
+    def gameOver(self):
         self.goto(0.00, 0.00)
         self.color("red")
         self.write(arg=f"Game Over!", move=False, align="Center", font=FONT)
