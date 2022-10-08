@@ -4,7 +4,7 @@ from snake import Snake
 screen = Screen()
 screen.tracer(0)
 
-screen.setup(height=600, width=600)
+screen.setup(height=600, width=800)
 screen.bgcolor('black')
 screen.title("Snake Game")
 newSnake = Snake()
