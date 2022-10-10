@@ -6,21 +6,28 @@ screen.tracer(0)
 
 class Pong:
     def __init__(self):
-        self.newBar = []
+        self.x_pos = -370
+        self.y_pos = 0
+        self.newBar = None
         self.newPong = Turtle("square")
         self.newPong.color("white")
         self.newPong.goto(0.0, 0.0)
         self.createBar()
 
     def createBar(self):
-        x_pos = -380
-        y_pos = -20
-        for num in range(4):
-            newBar = Turtle("square")
-            newBar.color("white")
-            newBar.penup()
-            newBar.setx(x_pos)
-            newBar.sety(y_pos)
-            self.newBar.append(newBar)
-            y_pos += 20
+        self.newBar = Turtle("square")
+        self.newBar.color("white")
+        self.newBar.penup()
+        self.newBar.shapesize(stretch_wid=5, stretch_len=1)
+        self.newBar.goto(self.x_pos, self.y_pos)
+        screen.update()
+        self.barMover()
+
+    def barMover(self):
+        screen.listen()
+        screen.onkey(fun=self.barUp, key="Up")
+
+    def barUp(self):
+        self.y_pos = self.y_pos + 20
+        self.newBar.goto(x=-370, y=self.y_pos)
         screen.update()
