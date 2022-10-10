@@ -5,9 +5,9 @@ screen.tracer(0)
 
 
 class Pong:
-    def __init__(self):
-        self.x_pos = -370
-        self.y_pos = 0
+    def __init__(self, xPos, yPos):
+        self.x_pos = xPos
+        self.y_pos = yPos
         self.newBar = None
         self.newPong = Turtle("square")
         self.newPong.color("white")
