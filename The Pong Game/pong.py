@@ -25,15 +25,19 @@ class Pong:
 
     def barMover(self):
         screen.listen()
-        screen.onkey(fun=self.barUp, key="Up")
-        screen.onkey(fun=self.barDown, key="Down")
+        if self.x_pos < 0:
+            screen.onkey(fun=self.barUp, key="w")
+            screen.onkey(fun=self.barDown, key="s")
+        else:
+            screen.onkey(fun=self.barUp, key="Up")
+            screen.onkey(fun=self.barDown, key="Down")
 
     def barUp(self):
         self.y_pos = self.y_pos + 20
-        self.newBar.goto(x=-370, y=self.y_pos)
+        self.newBar.goto(x=self.x_pos, y=self.y_pos)
         screen.update()
 
     def barDown(self):
         self.y_pos = self.y_pos - 20
-        self.newBar.goto(x=-370, y=self.y_pos)
+        self.newBar.goto(x=self.x_pos, y=self.y_pos)
         screen.update()
