@@ -9,9 +9,6 @@ class Pong:
         self.x_pos = xPos
         self.y_pos = yPos
         self.newBar = None
-        self.newPong = Turtle("square")
-        self.newPong.color("white")
-        self.newPong.goto(0.0, 0.0)
         self.createBar()
 
     def createBar(self):
