@@ -3,19 +3,12 @@ from turtle import Turtle
 
 class PongBall:
     def __init__(self):
-        self.newPong = Turtle("square")
+        self.newPong = Turtle("circle")
         self.newPong.color("white")
         self.newPong.goto(0.0, 0.0)
-        self.pongMover()
+        self.newPong.penup()
 
-    def pongMover(self):
-        gameOn = True
-        while gameOn:
-            x = 0
-            y = 0
-            self.newPong.goto(x=x, y=y)
-            x += 20
-            if self.newPong.xcor() >= 350:
-                while self.newPong.xcor() != 0:
-                    x -= 20
-                    self.newPong.goto(x=x, y=y)
+    def ballMover(self):
+        new_x = self.newPong.xcor() + 10
+        new_y = self.newPong.ycor() + 10
+        self.newPong.goto(new_x, new_y)
