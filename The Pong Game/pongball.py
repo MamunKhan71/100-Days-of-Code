@@ -12,3 +12,8 @@ class PongBall:
         new_x = self.newPong.xcor() + 10
         new_y = self.newPong.ycor() + 10
         self.newPong.goto(new_x, new_y)
+        if self.newPong.ycor() == 280:
+            print("inside")
+            new_x = self.newPong.xcor() - 10
+            new_y = self.newPong.ycor() - 10
+            self.newPong.goto(new_x, new_y)
