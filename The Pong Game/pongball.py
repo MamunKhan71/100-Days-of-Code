@@ -18,3 +18,6 @@ class PongBall(Turtle):
 
     def bounce(self):
         self.y_cor *= -1
+
+    def xBounce(self):
+        self.x_cor *= -1

@@ -25,7 +25,11 @@ while isGameOn:
     pongBall.ballMover()
     if pongBall.ycor() > 280 or pongBall.ycor() < -280:
         pongBall.bounce()
-    if
-
+    if pongBall.distance(right_paddle) < 50 and pongBall.xcor() > 340:
+        print("Ball Touched The Bar")
+        pongBall.xBounce()
+    if pongBall.distance(left_paddle) < 50 and pongBall.xcor() > -340:
+        print("Ball Touched The Bar")
+        pongBall.xBounce()
 
 screen.exitonclick()
