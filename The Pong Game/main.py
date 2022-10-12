@@ -31,7 +31,6 @@ while isGameOn:
         pongBall.reset()
         pongBall.xBounce()
     if pongBall.xcor() < -390:
-        print("Game is Over")
         pongBall.reset()
         pongBall.xBounce()
 
