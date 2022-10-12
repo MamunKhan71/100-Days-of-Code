@@ -9,6 +9,7 @@ class PongBall(Turtle):
         self.shape("circle")
         self.color("white")
         self.penup()
+        self.speeds = 0.1
 
     def ballMover(self):
         new_x = self.xcor() + self.x_cor
@@ -20,6 +21,9 @@ class PongBall(Turtle):
 
     def xBounce(self):
         self.x_cor *= -1
+        self.speeds *= 0.9
 
     def reset(self):
+        self.speeds = 0.1
         self.goto(0, 0)
+
