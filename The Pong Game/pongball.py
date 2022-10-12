@@ -1,5 +1,5 @@
 from turtle import Turtle
-from pong import Pong
+from pongbar import PongBar
 
 
 class PongBall:
@@ -18,4 +18,3 @@ class PongBall:
 
     def bounce(self):
         self.y_cor *= -1
-

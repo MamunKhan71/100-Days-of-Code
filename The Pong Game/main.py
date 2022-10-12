@@ -1,21 +1,27 @@
 from turtle import Turtle, Screen
-from pong import Pong
+from pongbar import PongBar
 import time
 from pongball import PongBall
+
 screen = Screen()
 screen.tracer(0)
 screen.setup(height=600, width=800)
 screen.bgcolor("black")
 screen.title("The Pong Game")
-pong = PongBall()
-newPong = Pong(xPos=370, yPos=0)
-newPong2 = Pong(xPos=-370, yPos=0)
+pongBall = PongBall()
+right_paddle = PongBar((350, 0))
+left_paddle = PongBar((-350, 0))
+
+screen.listen()
+screen.onkey(fun=right_paddle.barUp, key="Up")
+screen.onkey(fun=right_paddle.barDown, key="Down")
+screen.onkey(fun=left_paddle.barUp, key="w")
+screen.onkey(fun=left_paddle.barDown, key="s")
+
 isGameOn = True
 while isGameOn:
     time.sleep(0.1)
-    pong.ballMover()
     screen.update()
-    if pong.ycor() > 280 or pong.ycor() < -280:
-        pong.bounce()
+    pongBall.ballMover()
 
 screen.exitonclick()
