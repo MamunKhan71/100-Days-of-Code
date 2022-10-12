@@ -17,19 +17,22 @@ screen.onkey(fun=right_paddle.barUp, key="Up")
 screen.onkey(fun=right_paddle.barDown, key="Down")
 screen.onkey(fun=left_paddle.barUp, key="w")
 screen.onkey(fun=left_paddle.barDown, key="s")
-
 isGameOn = True
 while isGameOn:
     time.sleep(0.1)
     screen.update()
     pongBall.ballMover()
     if pongBall.ycor() > 280 or pongBall.ycor() < -280:
-        pongBall.bounce()
-    if pongBall.distance(right_paddle) < 50 and pongBall.xcor() > 340:
-        print("Ball Touched The Bar")
+        pongBall.yBounce()
+    if pongBall.distance(right_paddle) < 60 and pongBall.xcor() > 320 or pongBall.distance(left_paddle) < 60 and pongBall.xcor() < -320:
         pongBall.xBounce()
-    if pongBall.distance(left_paddle) < 50 and pongBall.xcor() > -340:
-        print("Ball Touched The Bar")
+    if pongBall.xcor() > 390:
+        print("Game is Over")
+        pongBall.reset()
+        pongBall.xBounce()
+    if pongBall.xcor() < -390:
+        print("Game is Over")
+        pongBall.reset()
         pongBall.xBounce()
 
 screen.exitonclick()
