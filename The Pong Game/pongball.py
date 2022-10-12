@@ -1,4 +1,5 @@
 from turtle import Turtle
+from pong import Pong
 
 
 class PongBall:
@@ -14,8 +15,6 @@ class PongBall:
         new_x = self.newPong.xcor() + self.x_cor
         new_y = self.newPong.ycor() + self.y_cor
         self.newPong.goto(new_x, new_y)
-        if self.newPong.ycor() > 280 or self.newPong.ycor() < -280 :
-            self.bounce()
 
     def bounce(self):
         self.y_cor *= -1

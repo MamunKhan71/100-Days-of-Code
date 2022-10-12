@@ -1,38 +1,18 @@
-from turtle import Turtle, Screen
-
-screen = Screen()
-screen.tracer(0)
+from turtle import Turtle
 
 
-class Pong:
-    def __init__(self, xPos, yPos):
-        self.x_pos = xPos
-        self.y_pos = yPos
-        self.newBar = None
-        self.createBar()
-
-    def createBar(self):
-        self.newBar = Turtle("square")
-        self.newBar.color("white")
-        self.newBar.penup()
-        self.newBar.shapesize(stretch_wid=5, stretch_len=1)
-        self.newBar.goto(self.x_pos, self.y_pos)
-        screen.update()
-        self.barMover()
-
-    def barMover(self):
-        screen.listen()
-        if self.x_pos < 0:
-            screen.onkey(fun=self.barUp, key="w")
-            screen.onkey(fun=self.barDown, key="s")
-        else:
-            screen.onkey(fun=self.barUp, key="Up")
-            screen.onkey(fun=self.barDown, key="Down")
+class Pong(Turtle):
+    def __init__(self, pos):
+        super().__init__()
+        self.shape("Square")
+        self.color("white")
+        self.penup()
+        self.shapesize(stretch_wid=5, stretch_len=1)
+        self.goto(pos)
 
     def barUp(self):
-        self.y_pos = self.y_pos + 20
-        self.newBar.goto(x=self.x_pos, y=self.y_pos)
-        screen.update()
+        newY = self.ycor() + 20
+        self.goto(x=self.xcor(), y=newY)
 
     def barDown(self):
         self.y_pos = self.y_pos - 20
