@@ -4,8 +4,8 @@ from turtle import Turtle
 class PongBall(Turtle):
     def __init__(self):
         super().__init__()
-        self.x_cor = 10
-        self.y_cor = 10
+        self.x_cor = 8
+        self.y_cor = 8
         self.shape("circle")
         self.color("white")
         self.penup()

@@ -14,10 +14,10 @@ left_paddle = PongBar((-350, 0))
 
 screen.listen()
 scores = ScoreBoard()
-screen.onkey(fun=right_paddle.barUp, key="Up")
-screen.onkey(fun=right_paddle.barDown, key="Down")
-screen.onkey(fun=left_paddle.barUp, key="w")
-screen.onkey(fun=left_paddle.barDown, key="s")
+screen.onkeypress(fun=right_paddle.barUp, key="Up")
+screen.onkeypress(fun=right_paddle.barDown, key="Down")
+screen.onkeypress(fun=left_paddle.barUp, key="w")
+screen.onkeypress(fun=left_paddle.barDown, key="s")
 isGameOn = True
 while isGameOn:
     time.sleep(pongBall.speeds)
