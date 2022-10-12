@@ -23,5 +23,9 @@ while isGameOn:
     time.sleep(0.1)
     screen.update()
     pongBall.ballMover()
+    if pongBall.ycor() > 280 or pongBall.ycor() < -280:
+        pongBall.bounce()
+    if
+
 
 screen.exitonclick()

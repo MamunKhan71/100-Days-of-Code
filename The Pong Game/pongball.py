@@ -1,20 +1,20 @@
 from turtle import Turtle
-from pongbar import PongBar
 
 
-class PongBall:
+class PongBall(Turtle):
     def __init__(self):
+        super().__init__()
         self.x_cor = 10
         self.y_cor = 10
-        self.newPong = Turtle("circle")
-        self.newPong.color("white")
-        self.newPong.goto(0.0, 0.0)
-        self.newPong.penup()
+        self.shape("circle")
+        self.color("white")
+        self.goto(0.0, 0.0)
+        self.penup()
 
     def ballMover(self):
-        new_x = self.newPong.xcor() + self.x_cor
-        new_y = self.newPong.ycor() + self.y_cor
-        self.newPong.goto(new_x, new_y)
+        new_x = self.xcor() + self.x_cor
+        new_y = self.ycor() + self.y_cor
+        self.goto(new_x, new_y)
 
     def bounce(self):
         self.y_cor *= -1
