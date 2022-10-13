@@ -13,7 +13,7 @@ carlist = CarManager()
 player = Player()
 game_is_on = True
 while game_is_on:
-    time.sleep(0.01)
+    time.sleep(0.05)
     carlist.carCreator()
     carlist.carMover()
     screen.onkeypress(fun=player.playerUp, key="Up")
@@ -22,8 +22,8 @@ while game_is_on:
         if num.distance(player) < 20:
             score.scorePrinter()
             score.gameOver()
-            break
-        elif player.ycor() > 290:
+            game_is_on = False
+        if player.ycor() > 290:
             score.scoreUpdater()
             player.levelIncr()
             carlist.movementIncr()
