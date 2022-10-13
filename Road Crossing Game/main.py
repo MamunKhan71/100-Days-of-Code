@@ -24,4 +24,5 @@ while game_is_on:
             score.gameOver()
         elif player.ycor() > 290:
             score.scoreUpdater()
+            player.levelIncreaser()
 screen.exitonclick()
