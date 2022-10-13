@@ -5,6 +5,7 @@ from car_manager import CarManager
 from scoreboard import Scoreboard
 
 screen = Screen()
+score = Scoreboard()
 screen.setup(width=600, height=600)
 screen.tracer(0)
 screen.listen()
@@ -19,5 +20,8 @@ while game_is_on:
     screen.update()
     for num in carlist.carList :
         if num.distance(player) < 20:
-            print("Car hits!")
+            score.scorePrinter()
+            score.gameOver()
+        elif player.ycor() > 290:
+            score.scoreUpdater()
 screen.exitonclick()
