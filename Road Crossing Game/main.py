@@ -17,4 +17,7 @@ while game_is_on:
     carlist.carMover()
     screen.onkeypress(fun=player.playerUp, key="Up")
     screen.update()
+    for num in carlist.carList :
+        if num.distance(player) < 20:
+            print("Car hits!")
 screen.exitonclick()
