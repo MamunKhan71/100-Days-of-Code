@@ -8,7 +8,7 @@ class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        with open("ScoreTracker.txt", "r") as scr:
+        with open("ScoreFile/ScoreTracker.txt", "r") as scr:
             self.highScore = scr.read()
         self.hideturtle()
         self.color("white")
@@ -40,7 +40,7 @@ class Scoreboard(Turtle):
         self.goto(x=.00, y=-60.00)
         self.color("white")
         if int(self.highScore) < self.score:
-            with open("ScoreTracker.txt", "w") as scrUp:
+            with open("ScoreFile/ScoreTracker.txt", "w") as scrUp:
                 latestScore = str(self.score)
                 scrUp.write(latestScore)
                 self.highScore = latestScore
