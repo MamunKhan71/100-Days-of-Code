@@ -1,5 +1,6 @@
-# python slicing
-
-a = ["1", "2", "3", "4", "5", "6", "7"]
-
-print(a[::-1])
+with open("score.txt", "r") as file:
+    content = file.read()
+    print(content)
+with open("score.txt", "w") as fileW:
+    if int(content) < 5:
+        fileW.write("5")

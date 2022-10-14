@@ -32,3 +32,19 @@ class Scoreboard(Turtle):
         self.goto(x=.00, y=-30.00)
         self.color("white")
         self.write(arg=f"Final Score - {self.score}", move=False, align="Center", font=FONT)
+        self.HighScore()
+
+    def HighScore(self):
+        self.goto(x=.00, y=-60.00)
+        self.color("white")
+        with open("ScoreTracker.txt", "r") as scr:
+            scrs = scr.read()
+        if int(scrs) < self.score:
+            with open("ScoreTracker.txt", "w") as scrUp:
+                latestScore = str(self.score)
+                scrUp.write(latestScore)
+                scrs = latestScore
+
+        self.write(arg=f"High Score : {scrs}", move=False, align="Center", font=FONT)
+        print(f"H")
+
