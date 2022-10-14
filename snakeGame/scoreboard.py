@@ -8,6 +8,8 @@ class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
+        with open("ScoreTracker.txt", "r") as scr:
+            self.highScore = scr.read()
         self.hideturtle()
         self.color("white")
         self.penup()
@@ -16,7 +18,7 @@ class Scoreboard(Turtle):
 
     def scoreUpdater(self):
         self.clear()
-        self.write(arg=f"Score: {self.score}", move=False, align=ALIGNMENT, font=FONT)
+        self.write(arg=f"Score: {self.score} - High Score : {self.highScore}", move=False, align=ALIGNMENT, font=FONT)
 
     def scoreIncrease(self):
         self.score += 1
@@ -37,14 +39,12 @@ class Scoreboard(Turtle):
     def HighScore(self):
         self.goto(x=.00, y=-60.00)
         self.color("white")
-        with open("ScoreTracker.txt", "r") as scr:
-            scrs = scr.read()
-        if int(scrs) < self.score:
+        if int(self.highScore) < self.score:
             with open("ScoreTracker.txt", "w") as scrUp:
                 latestScore = str(self.score)
                 scrUp.write(latestScore)
-                scrs = latestScore
+                self.highScore = latestScore
 
-        self.write(arg=f"High Score : {scrs}", move=False, align="Center", font=FONT)
+        self.write(arg=f"High Score : {self.highScore}", move=False, align="Center", font=FONT)
         print(f"H")
 
