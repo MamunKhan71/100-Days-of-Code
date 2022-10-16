@@ -9,8 +9,5 @@ import pandas as pd
 #             temperatures.append(int(row[1]))
 #
 #     print(temperatures)
-temperature = pd.read_csv("weather_report.csv")
-newTemp = temperature["temp"].tolist()
 
-print(f"Average: {temperature.mean()}")
 
