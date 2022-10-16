@@ -9,5 +9,8 @@ import pandas as pd
 #             temperatures.append(int(row[1]))
 #
 #     print(temperatures)
-
+temperature = pd.read_csv("weather_report.csv")
+monday = temperature[temperature.day == "Monday"]
+fHeit = (9/5)*float(monday.temp)+32
+print(fHeit)
 
