@@ -25,12 +25,4 @@ while True:
     else:
         continue
 
-
-
-
-
-
-
-
-
 screen.mainloop()
