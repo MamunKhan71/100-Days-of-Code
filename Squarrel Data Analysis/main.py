@@ -1,9 +1,9 @@
 import pandas as pd
 sqRL = pd.read_csv("Squirrel_Data_2018.csv")
-greySL = sqRL["Primary Fur Color"]
-gray = len(greySL[greySL == "Gray"])
-red = len(greySL[greySL == "Cinnamon"])
-black = len(greySL[greySL == "Black"])
+colorSL = sqRL["Primary Fur Color"]
+gray = len(colorSL[colorSL == "Gray"])
+red = len(colorSL[colorSL == "Cinnamon"])
+black = len(colorSL[colorSL == "Black"])
 
 squirrel_count = {
     "Fur Color": ["grey", "red", "black"],
