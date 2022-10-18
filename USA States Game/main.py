@@ -17,10 +17,7 @@ while True:
     else:
         answer = screen.textinput(title=f"{score}/{len(states)} States Correct", prompt="What's another State?").title()
     if answer == "Exit":
-        missing_states = []
-        for aStates in statesList:
-            if aStates not in answerList:
-                missing_states.append(aStates)
+        missing_states = [states for states in statesList if states not in answerList]
         data = pd.DataFrame(missing_states)
         data.to_csv("MissingStates")
         print(data)
