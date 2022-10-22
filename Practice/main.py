@@ -1,11 +1,22 @@
-import tkinter
-window = tkinter.Tk()
-window.title("My First Program - GUI")
-window.minsize(width=500, height=300)
-new_label = tkinter.Label(text="I am a label", font=("Consolas",10,"bold"))
-new_label.pack(side="left")
+from tkinter import *
+
+# Creating a new window and configurations
+window = Tk()
+window.title("Widget Examples")
+window.minsize(width=500, height=500)
+
+# Labels
+label = Label(text="This is old text")
+label.config(text="This is new text")
+label.pack()
 
 
+# Buttons
+def action():
+    print("Do something")
 
 
-window.mainloop()
+# calls action() when pressed
+button = Button(text="Click Me", command=action)
+button.pack()
+

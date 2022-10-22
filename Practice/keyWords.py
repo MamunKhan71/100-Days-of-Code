@@ -1,9 +1,10 @@
-def calculate(defaultNum, **kwargs):
-    defaultNum += kwargs["add"]
-    defaultNum *= kwargs["mul"]
-    defaultNum /= kwargs["div"]
+class Car():
+    def __init__(self, **kw):
+        self.make = kw.get("make")
+        self.color = kw.get("color")
+        self.model = kw.get("model")
+        self.nitro = kw.get("nitro")
 
-    print(defaultNum)
 
-
-calculate(defaultNum=5, add=5)
+cars = Car(nitro="True",color="Black")
+print(cars.model)
