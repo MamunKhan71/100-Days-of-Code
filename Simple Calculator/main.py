@@ -9,6 +9,7 @@ window.config(padx=50, pady=50)
 # Entry Deleter
 def entryDeleter():
     resultShow.delete(0, END)
+    resultShow.focus()
 
 
 # Add function
