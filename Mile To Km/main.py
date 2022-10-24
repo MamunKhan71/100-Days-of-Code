@@ -38,6 +38,7 @@ label2.grid(row=1, column=2)
 
 # Creating Button
 button = Button(text="Calculate", command=mile_to_km)
+button.focus()
 button.grid(row=2, column=1)
 
 
