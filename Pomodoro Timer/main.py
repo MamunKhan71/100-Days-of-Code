@@ -11,13 +11,22 @@ FONT_NAME = "Consolas"
 WORK_MIN = 0.1
 SHORT_BREAK_MIN = 0.2
 LONG_BREAK_MIN = 0.3
-reps = 1
+reps = 0
+timer = None
 
 
 # ---------------------------- TIMER ------------------------------- #
-def timeCounter(count):
+def timeReset():
     global reps
-    checkText = ""
+    reps = 0
+    checkMark.config(text="", bg="white", fg="white")
+    canvas.itemconfig(titleText, text="Pomodoro Timer", fill="black")
+    canvas.itemconfig(timeCounters, text=f"00:00")
+    window.after_cancel(timer)
+
+
+def timeCounter(count):
+    global reps, timer
     countMin = math.floor(count / 60)
     countSec = count % 60
     if 0 <= countSec <= 9:
@@ -26,33 +35,33 @@ def timeCounter(count):
         countMin = "0" + str(countMin)
     canvas.itemconfig(timeCounters, text=f"{countMin}:{countSec}")
     if count > 0:
-        window.after(1000, timeCounter, count - 1)
+        global timer
+        timer = window.after(1000, timeCounter, count - 1)
     else:
         startTimer()
         mark = ""
-        workSessions = math.floor(reps/2)
+        workSessions = math.floor(reps / 2)
         for _ in range(workSessions):
             mark += "✅"
-        checkMark.config(text=mark)
+        checkMark.config(text=mark, bg="green", fg="white")
 
 
 def startTimer():
     global reps
+    reps += 1
     workTime = WORK_MIN * 60
     shortBreak = SHORT_BREAK_MIN * 60
     longBreak = LONG_BREAK_MIN * 60
+
     if reps % 8 == 0:
-        reps += 1
         canvas.itemconfig(titleText, text=f"Break", fill="blue")
         timeCounter(longBreak)
     elif reps % 2 == 0:
-        reps += 1
         canvas.itemconfig(titleText, text=f"Break", fill="red")
         timeCounter(shortBreak)
     else:
-        reps += 1
-        canvas.itemconfig(titleText, text=f"Work", fill="green")
         timeCounter(workTime)
+        canvas.itemconfig(titleText, text=f"Work", fill="green")
 
 
 window = Tk()
@@ -64,10 +73,10 @@ tomatoImg = PhotoImage(file="tomatoTimerPng.png")
 canvas.create_image(150, 180, image=tomatoImg)
 timeCounters = canvas.create_text(150, 350, text="00:00", fill="red", font=(FONT_NAME, 40, "bold"))
 start = Button(text="Start", width=10, bg="black", fg="white", highlightthickness=0, command=startTimer)
-reset = Button(text="Reset", width=10, bg="blue", fg="white", highlightthickness=0)
+reset = Button(text="Reset", width=10, bg="blue", fg="white", highlightthickness=0, command=timeReset)
 barImg = PhotoImage(file="complete.png")
 barImage = canvas.create_image(150, 400, image=barImg)
-checkMark = Label(borderwidth=2, relief="flat", bg="green", fg="white")
+checkMark = Label(borderwidth=2, relief="flat", highlightthickness=0)
 checkMark.grid(row=2, column=1)
 start.grid(row=2, column=0)
 reset.grid(row=2, column=2)
