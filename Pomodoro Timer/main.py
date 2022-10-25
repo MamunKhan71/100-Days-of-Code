@@ -2,15 +2,11 @@ from tkinter import *
 import math
 
 # ---------------------------- CONSTANTS ------------------------------- #
-PINK = "#e2979c"
-RED = "#e7305b"
-GREEN = "#9bdeac"
-YELLOW = "#f7f5dd"
 bg = "#F9F9F9"
 FONT_NAME = "Consolas"
-WORK_MIN = 0.1
-SHORT_BREAK_MIN = 0.2
-LONG_BREAK_MIN = 0.3
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 reps = 0
 timer = None
 
