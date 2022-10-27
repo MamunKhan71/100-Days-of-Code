@@ -24,7 +24,7 @@ def fileSaver():
     webSiteName = webEntry.get()
     print(webSiteName)
     userOrEmail = emlEntry.get()
-    passWord = randomPass
+    passWord = passEntry.get()
     if not webSiteName:
         webEntry.focus()
         errorPrinter("Website Name")
