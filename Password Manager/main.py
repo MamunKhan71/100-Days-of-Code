@@ -1,6 +1,15 @@
 from tkinter import *
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+from passwordGenerator import PassGen
+
+
+def passGenerator():
+    passGen = PassGen()
+    randomPass = passGen.passWGen()
+    passEntry.delete(0, END)
+    passEntry.insert(END, string=f"{randomPass}")
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -31,7 +40,7 @@ passLbl.grid(row=3, column=0, sticky="W", pady=5)
 passEntry = Entry(width=21)
 passEntry.insert(END, string="********")
 passEntry.grid(row=3, column=1, sticky="W", pady=5)
-genPassBtn = Button(text="Generate", width=10, bg="blue", fg="white")
+genPassBtn = Button(text="Generate", width=10, bg="blue", fg="white", command=passGenerator)
 genPassBtn.grid(row=3, column=2, sticky="W", pady=5)
 
 addBtn = Button(text="Add", width=29, height=1, bg="green", fg="white")
