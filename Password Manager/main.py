@@ -3,8 +3,11 @@ from tkinter import *
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 from passwordGenerator import PassGen
 
+randomPass = None
+
 
 def passGenerator():
+    global randomPass
     passGen = PassGen()
     randomPass = passGen.passWGen()
     passEntry.delete(0, END)
@@ -12,6 +15,13 @@ def passGenerator():
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def fileSaver():
+    webSiteName = webEntry.get()
+    userOrEmail = emlEntry.get()
+    passWord = randomPass
+    with open(file="passSaver.txt", mode="a") as passSaver:
+        passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -26,23 +36,23 @@ webLabel = Label(text="Website : ", )
 webLabel.grid(row=1, column=0, sticky="W", pady=5)
 
 webEntry = Entry(width=35)
-webEntry.insert(END, string="Website Name")
+# webEntry.insert(END, string="Website Name")
 webEntry.focus()
 webEntry.grid(row=1, column=1, columnspan=2)
 emlLabel = Label(text="Email/Username : ")
 emlLabel.grid(row=2, column=0, sticky="W", pady=5)
 emlEntry = Entry(width=35)
-emlEntry.insert(END, string="User Name / Email")
+# emlEntry.insert(END, string="User Name / Email")
 emlEntry.grid(row=2, column=1, columnspan=2, sticky="W", pady=5)
 
 passLbl = Label(text="Password : ")
 passLbl.grid(row=3, column=0, sticky="W", pady=5)
 passEntry = Entry(width=21)
-passEntry.insert(END, string="********")
+# passEntry.insert(END, string="********")
 passEntry.grid(row=3, column=1, sticky="W", pady=5)
 genPassBtn = Button(text="Generate", width=10, bg="blue", fg="white", command=passGenerator)
 genPassBtn.grid(row=3, column=2, sticky="W", pady=5)
 
-addBtn = Button(text="Add", width=29, height=1, bg="green", fg="white")
+addBtn = Button(text="Add", width=29, height=1, bg="green", fg="white", command=fileSaver)
 addBtn.grid(row=4, column=1, columnspan=2, sticky="W", pady=5)
 window.mainloop()
