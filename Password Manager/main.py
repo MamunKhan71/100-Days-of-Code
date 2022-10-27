@@ -1,5 +1,6 @@
 from tkinter import *
-
+from tkinter import messagebox
+from termcolor import colored
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 from passwordGenerator import PassGen
 
@@ -19,11 +20,18 @@ def fileSaver():
     webSiteName = webEntry.get()
     userOrEmail = emlEntry.get()
     passWord = randomPass
-    with open(file="passSaver.txt", mode="a") as passSaver:
-        passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
-        webEntry.delete(0, END)
-        emlEntry.delete(0, END)
-        passEntry.delete(0, END)
+    if webSiteName is None:
+        messagebox.showerror(title="Web Name Error", message="Please Enter the Web Name")
+    else:
+        userInput = messagebox.askokcancel(title=webSiteName, message=f"These are the details entered \nUser Name : {userOrEmail} "
+                                                                  f"\nPassword : {passWord}\nIs it okay?")
+        if userInput:
+            with open(file="passSaver.txt", mode="a") as passSaver:
+                passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
+                webEntry.delete(0, END)
+                emlEntry.delete(0, END)
+                passEntry.delete(0, END)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
