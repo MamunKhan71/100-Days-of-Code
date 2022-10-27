@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from termcolor import colored
+import pyperclip
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 from passwordGenerator import PassGen
 
@@ -35,6 +35,7 @@ def fileSaver():
         passEntry.focus()
         errorPrinter("Password")
     else:
+        pyperclip.copy(passWord)
         userInput = messagebox.askokcancel(title=webSiteName,
                                            message=f"These are the details entered \nUser Name : {userOrEmail} "
                                                    f"\nPassword : {passWord}\nIs it okay?")
