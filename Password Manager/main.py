@@ -21,7 +21,9 @@ def fileSaver():
     passWord = randomPass
     with open(file="passSaver.txt", mode="a") as passSaver:
         passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
-
+        webEntry.delete(0, END)
+        emlEntry.delete(0, END)
+        passEntry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
