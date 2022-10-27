@@ -16,15 +16,28 @@ def passGenerator():
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def errorPrinter(messageName):
+    messagebox.showerror(title="Web Name Error", message=f"Please enter the {messageName}")
+
+
 def fileSaver():
     webSiteName = webEntry.get()
+    print(webSiteName)
     userOrEmail = emlEntry.get()
     passWord = randomPass
-    if webSiteName is None:
-        messagebox.showerror(title="Web Name Error", message="Please Enter the Web Name")
+    if not webSiteName:
+        webEntry.focus()
+        errorPrinter("Website Name")
+    elif not userOrEmail:
+        emlEntry.focus()
+        errorPrinter("User Name or Email")
+    elif not passWord:
+        passEntry.focus()
+        errorPrinter("Password")
     else:
-        userInput = messagebox.askokcancel(title=webSiteName, message=f"These are the details entered \nUser Name : {userOrEmail} "
-                                                                  f"\nPassword : {passWord}\nIs it okay?")
+        userInput = messagebox.askokcancel(title=webSiteName,
+                                           message=f"These are the details entered \nUser Name : {userOrEmail} "
+                                                   f"\nPassword : {passWord}\nIs it okay?")
         if userInput:
             with open(file="passSaver.txt", mode="a") as passSaver:
                 passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
