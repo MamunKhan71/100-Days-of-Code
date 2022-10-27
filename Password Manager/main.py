@@ -17,7 +17,7 @@ def passGenerator():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def errorPrinter(messageName):
-    messagebox.showerror(title="Web Name Error", message=f"Please enter the {messageName}")
+    messagebox.showerror(title=f"{messageName} error", message=f"Please enter the {messageName}")
 
 
 def fileSaver():
