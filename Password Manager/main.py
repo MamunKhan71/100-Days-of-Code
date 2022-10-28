@@ -21,6 +21,19 @@ def errorPrinter(messageName):
     messagebox.showerror(title=f"{messageName} error", message=f"Please enter the {messageName}")
 
 
+def findPassword():
+    website = webEntry.get()
+    with open(file="passSaver.json") as dataFile:
+        data = json.load(dataFile)
+        if website in data:
+            email = data[website]['Name']
+            passW = data[website]['Password']
+            messagebox.showinfo(title=f"{website} Password", message=f"Your Information for {website} is :\n"
+                                                                     f"User Name : {email}\nPassword: {passW}")
+        else:
+            messagebox.showinfo(title=f"{website} Password Not Found", message=f"Error 404 - Password Not found ")
+
+
 def fileSaver():
     webSiteName = webEntry.get()
     print(webSiteName)
@@ -78,7 +91,7 @@ webEntry = Entry(width=21)
 # webEntry.insert(END, string="Website Name")
 webEntry.focus()
 webEntry.grid(row=1, column=1)
-webSearch = Button(text="Search", width=10, bg="black", fg="white")
+webSearch = Button(text="Search", width=10, bg="black", fg="white", command=findPassword)
 webSearch.grid(row=1, column=2, sticky="W")
 emlLabel = Label(text="Email/Username : ")
 emlLabel.grid(row=2, column=0, sticky="W", pady=5)
