@@ -1,3 +1,4 @@
+import json
 from tkinter import *
 from tkinter import messagebox
 import pyperclip
@@ -25,6 +26,12 @@ def fileSaver():
     print(webSiteName)
     userOrEmail = emlEntry.get()
     passWord = passEntry.get()
+    passWordJson = {
+        webSiteName: {
+            "Name": userOrEmail,
+            "Password": passWord,
+        }
+    }
     if not webSiteName:
         webEntry.focus()
         errorPrinter("Website Name")
@@ -40,8 +47,16 @@ def fileSaver():
                                            message=f"These are the details entered \nUser Name : {userOrEmail} "
                                                    f"\nPassword : {passWord}\nIs it okay?")
         if userInput:
-            with open(file="passSaver.txt", mode="a") as passSaver:
-                passSaver.write(f"{webSiteName} | {userOrEmail} | {passWord} \n")
+            try:
+                with open(file="passSaver.json", mode="r") as passSaver:
+                    data = json.load(passSaver)
+                    data.update(passWordJson)
+                with open(file="passSaver.json", mode="w") as passSaver:
+                    json.dump(data, passSaver, indent=4)
+            except FileNotFoundError:
+                with open(file="passSaver.json", mode="w") as passSaver:
+                    json.dump(passWordJson, passSaver, indent=4)
+            finally:
                 webEntry.delete(0, END)
                 emlEntry.delete(0, END)
                 passEntry.delete(0, END)
