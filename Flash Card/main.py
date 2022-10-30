@@ -4,16 +4,20 @@ import pandas as pd
 
 BACKGROUND_COLOR = "#563F6D"
 NEW_BACKGROUND_COLOR = "#56AB45"
-database = pd.read_csv("./data/french_words.csv")
-dbList = database.to_dict(orient="records")
-
+database = None
+try:
+    database = pd.read_csv("./data/to_learn.csv")
+except FileNotFoundError:
+    database = pd.read_csv("./data/french_words.csv")
+finally:
+    dbDictToLearn = database.to_dict(orient="records")
 current_card = {}
 
 
 def nextCardChooser():
     global current_card, flipWindow
     window.after_cancel(flipWindow)
-    current_card = random.choice(dbList)
+    current_card = random.choice(dbDictToLearn)
     canvas.itemconfig(canvasImage, image=cardImage)
     canvas.itemconfig(titleText, text=f"French")
     canvas.itemconfig(questionText, text=f"{current_card['French']}")
@@ -25,6 +29,14 @@ def cardFlipper():
     canvas.itemconfig(canvasImage, image=backImg)
     canvas.itemconfig(titleText, text="English")
     canvas.itemconfig(questionText, text=current_card["English"])
+
+
+def knownCards():
+    dbDictToLearn.remove(current_card)
+    newDict = pd.DataFrame(dbDictToLearn)
+    newDict.to_csv("./data/to_learn.csv")
+    print(len(dbDictToLearn))
+    nextCardChooser()
 
 
 window = Tk()
@@ -39,10 +51,10 @@ canvas.config(bg=BACKGROUND_COLOR)
 titleText = canvas.create_text(384, 180, font=("Born Rounded Demo", 24, "italic underline"))
 questionText = canvas.create_text(384, 263, font=("Born Rounded Demo", 24, "bold"))
 canvas.grid(row=0, column=0, columnspan=2)
-rightImg = PhotoImage(file="./images/buttonr.png")
-rightBtn = Button(image=rightImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
+rightImg = PhotoImage(file="images/buttonRight.png")
+rightBtn = Button(image=rightImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=knownCards)
 rightBtn.grid(row=1, column=0)
-leftImg = PhotoImage(file="./images/buttonx.png")
+leftImg = PhotoImage(file="images/buttonWrong.png")
 leftBtn = Button(image=leftImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
 leftBtn.grid(row=1, column=1)
 nextCardChooser()
