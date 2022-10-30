@@ -1,5 +1,17 @@
+import random
 from tkinter import *
+import pandas as pd
+
 BACKGROUND_COLOR = "#563F6D"
+database = pd.read_csv("./data/french_words.csv")
+dbList = database.to_dict(orient="records")
+print(dbList)
+
+
+def nextCardChooser():
+    current_card = random.choice(dbList)
+    print(current_card["French"])
+
 
 window = Tk()
 window.title("Flashy")
@@ -13,9 +25,9 @@ canvas.create_text(384, 180, text="   Quiz - 01   ", font=("Born Rounded Demo", 
 canvas.create_text(384, 263, text="What is the name of Bangladesh?", font=("Born Rounded Demo", 24, "bold"))
 canvas.grid(row=0, column=0, columnspan=2)
 rightImg = PhotoImage(file="./images/buttonr.png")
-rightBtn = Button(image=rightImg, highlightthickness=0, bg= BACKGROUND_COLOR, borderwidth=0)
+rightBtn = Button(image=rightImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
 rightBtn.grid(row=1, column=0)
 leftImg = PhotoImage(file="./images/buttonx.png")
-leftBtn = Button(image=leftImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0)
-leftBtn.grid(row=1, column = 1)
+leftBtn = Button(image=leftImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
+leftBtn.grid(row=1, column=1)
 window.mainloop()
