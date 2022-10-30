@@ -15,12 +15,13 @@ def nextCardChooser():
     current_card = random.choice(dbList)
     canvas.itemconfig(titleText, text=f"French")
     canvas.itemconfig(questionText, text=f"{current_card['French']}")
+    canvas.after(3000, func=cardFlipper)
 
 
 def cardFlipper():
     global current_card
     # newImage = PhotoImage(file="./images/ffb.png")
-    # canvas.itemconfig(canvasImage, image=newImage)
+    # canvas.item-config(canvasImage, image=newImage)
     canvas.itemconfig(titleText, text="English")
     canvas.itemconfig(questionText, text=current_card["English"])
 
@@ -40,7 +41,7 @@ rightImg = PhotoImage(file="./images/buttonr.png")
 rightBtn = Button(image=rightImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
 rightBtn.grid(row=1, column=0)
 leftImg = PhotoImage(file="./images/buttonx.png")
-leftBtn = Button(image=leftImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=cardFlipper)
+leftBtn = Button(image=leftImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=nextCardChooser)
 leftBtn.grid(row=1, column=1)
 nextCardChooser()
 window.mainloop()
