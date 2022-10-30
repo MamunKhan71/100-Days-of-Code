@@ -34,7 +34,7 @@ def cardFlipper():
 def knownCards():
     dbDictToLearn.remove(current_card)
     newDict = pd.DataFrame(dbDictToLearn)
-    newDict.to_csv("./data/to_learn.csv")
+    newDict.to_csv("./data/to_learn.csv", index=False)
     print(len(dbDictToLearn))
     nextCardChooser()
 
@@ -49,7 +49,7 @@ backImg = PhotoImage(file="./images/ffb.png")
 canvasImage = canvas.create_image(384, 260, image=cardImage)
 canvas.config(bg=BACKGROUND_COLOR)
 titleText = canvas.create_text(384, 180, font=("Born Rounded Demo", 24, "italic underline"))
-questionText = canvas.create_text(384, 263, font=("Born Rounded Demo", 24, "bold"))
+questionText = canvas.create_text(384, 263, font=("Born Rounded Demo", 30, "bold"))
 canvas.grid(row=0, column=0, columnspan=2)
 rightImg = PhotoImage(file="images/buttonRight.png")
 rightBtn = Button(image=rightImg, highlightthickness=0, bg=BACKGROUND_COLOR, borderwidth=0, command=knownCards)
