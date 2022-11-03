@@ -1,17 +1,14 @@
 import pandas as pd
-import datetime as dt
-Date = dt.datetime.now()
-todayMonth = Date.month
-todayDate = Date.day
-birthdate = (todayMonth, todayDate)
-birthday = pd.read_csv("./Birthday Data/birthdays.csv")
+from datetime import datetime
+today = datetime.now()
+todayDate = (today.month, today.day)
 
-birthdayDict = {birthdate: value for (key, value) in birthday.iterrows()}
-print(birthdayDict)
-# if todayMonth in birthday.iterrows():
-#     print("Yes")
-# else:
-#     print("No")
+birthday = pd.read_csv("./Birthday Data/birthdays.csv")
+birthdayDict = {(row["month"], row["day"]): row for (index, row) in birthday.iterrows()}
+
+if todayDate in birthdayDict:
+    print(f"Your Name : {birthdayDict['row']}")
+
 
 # birthdayMonth = str(birthdays)
 # print(birthdayMonth)
