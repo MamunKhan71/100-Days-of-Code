@@ -3,14 +3,15 @@ import requests
 
 
 def quoteChanger():
-    serverResponse = requests.get(url="https://api.kanye.rest/").json()
-    newQuote = serverResponse["quote"]
+    response = requests.get(url="https://api.kanye.rest/")
+    response.raise_for_status()
+    quote = response.json()
+    newQuote = quote["quote"]
     canvas.itemconfig(canvasText, text=newQuote)
 
 
 window = Tk()
 
-serverResponse = requests.get(url="https://api.kanye.rest/").json()
 window.title("Kanye Says")
 window.config(padx=20, pady=20)
 canvas = Canvas(height=414, width=300, highlightthickness=0)
