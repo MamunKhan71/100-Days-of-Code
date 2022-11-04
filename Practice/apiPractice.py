@@ -14,7 +14,6 @@ sunStatus.raise_for_status()
 data = sunStatus.json()
 sunrise = data["results"]["sunrise"]
 sunset = data["results"]["sunset"]
-print(sunrise)
+print(sunrise.split("T"))
 print(sunset)
 print(now)
-
