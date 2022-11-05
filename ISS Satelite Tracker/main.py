@@ -1,24 +1,35 @@
 import requests
 from datetime import datetime
+import smtplib
 
 my_lat = 23.810331
 my_lng = 90.412521
 time = datetime.now().hour
 
+userEmail = "mamunkhan3523@gmail.com"
+userPass = "aefgfgzizrctgrna"
 parameters = {
     "lat": my_lat,
     "lng": my_lng,
 }
 
 
+def emailNotifier(message):
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(user=userEmail, password=userPass)
+        connection.sendmail(from_addr=userEmail, to_addrs="mamunkhan3523@yahoo.com", msg=message)
+
+
 def issIsOverhead(iss_lt, iss_lg):
+
     if (iss_lg - 5) <= my_lng <= (iss_lg + 5) and (iss_lt - 5) <= my_lat <= (iss_lt + 5):
         if isNightCheck():
-            print("Can be seen")
+            emailNotifier(message=f"Can Be Seen")
         else:
-            print("Can't be seen")
+            emailNotifier(message=f"Can't Be Seen")
     else:
-        print("False")
+        emailNotifier(message=f"Can't Be Seen")
 
 
 def isNightCheck():
