@@ -7,12 +7,13 @@ THEME_COLOR = "#375362"
 class QuizInterface:
     def __init__(self, quiz_brain: QuizBrain):
         self.quiz = quiz_brain
+        self.score = 0
         self.window = Tk()
         self.window.title("Quizzler - The Quiz App")
         self.window.config(padx=50, pady=50, bg="#ededed", highlightthickness=0)
         self.canvas = Canvas(height=400, width=400, highlightthickness=0, bg="#ededed")
-        self.score = Label(text="Score", font=("Arial", 20, "bold"), bg="#ededed")
-        self.score.grid(row=0, column=1, columnspan=2)
+        self.scoreLabel = Label(text="Score : ", font=("Arial", 20, "bold"), bg="#ededed")
+        self.scoreLabel.grid(row=0, column=1, columnspan=2)
         self.bgImage1 = PhotoImage(file="images/bg1.png")
         self.bgImage2 = PhotoImage(file="images/bgRed.png")
         self.bgImage3 = PhotoImage(file="images/bgGreen.png")
@@ -47,11 +48,14 @@ class QuizInterface:
 
     def feedback(self, checkAnswer):
         if checkAnswer:
+            self.score += 1
+            self.scoreLabel.config(text=f"Score : {self.score}")
             self.canvas.itemconfig(self.questionText, fill="black")
             self.canvas.itemconfig(self.imageBg, image=self.bgImage3)
             self.window.after(1000, func=self.get_next_qus)
 
         else:
+            self.scoreLabel.config(text=f"Score : {self.score}")
             self.canvas.itemconfig(self.questionText, fill="black")
             self.canvas.itemconfig(self.imageBg, image=self.bgImage2)
             self.window.after(1000, func=self.get_next_qus)
