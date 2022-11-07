@@ -1,5 +1,5 @@
 import requests
-newQuestion = requests.get(url="https://opentdb.com/api.php?amount=10&type=boolean")
+newQuestion = requests.get(url="https://opentdb.com/api.php?amount=20&type=boolean")
 newQuestion.raise_for_status()
 data = newQuestion.json()
 question_data = data["results"]
