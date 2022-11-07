@@ -13,8 +13,10 @@ class QuizInterface:
         self.canvas = Canvas(height=400, width=400, highlightthickness=0, bg="#ededed")
         self.score = Label(text="Score", font=("Arial", 20, "bold"), bg="#ededed")
         self.score.grid(row=0, column=1, columnspan=2)
-        self.bgImage = PhotoImage(file="images/bg1.png")
-        self.image = self.canvas.create_image(200, 200, image=self.bgImage)
+        self.bgImage1 = PhotoImage(file="images/bg1.png")
+        self.bgImage2 = PhotoImage(file="images/bgRed.png")
+        self.bgImage3 = PhotoImage(file="images/bgGreen.png")
+        self.imageBg = self.canvas.create_image(200, 200, image=self.bgImage1)
         self.canvas.grid(row=1, column=1, columnspan=2)
         self.questionText = self.canvas.create_text(200, 200, text="Question Text",
                                                     width=200,
@@ -30,6 +32,8 @@ class QuizInterface:
         self.window.mainloop()
 
     def get_next_qus(self):
+        self.canvas.itemconfig(self.imageBg, image=self.bgImage1)
+        self.canvas.itemconfig(self.questionText, fill="white")
         qText = self.quiz.next_question()
         self.canvas.itemconfig(self.questionText, text=qText)
 
@@ -43,10 +47,12 @@ class QuizInterface:
 
     def feedback(self, checkAnswer):
         if checkAnswer:
-            newImage = PhotoImage(file="./images/bgGreen.png")
-            self.canvas.itemconfig(self.image, image=newImage)
+            self.canvas.itemconfig(self.questionText, fill="black")
+            self.canvas.itemconfig(self.imageBg, image=self.bgImage3)
             self.window.after(1000, func=self.get_next_qus)
+
         else:
-            newImage = PhotoImage(file="./images/bgRed.png")
-            self.canvas.itemconfig(self.image, image=newImage)
+            self.canvas.itemconfig(self.questionText, fill="black")
+            self.canvas.itemconfig(self.imageBg, image=self.bgImage2)
             self.window.after(1000, func=self.get_next_qus)
+
