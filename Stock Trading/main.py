@@ -5,13 +5,20 @@ parameter = {
     "symbol": "TSLA",
     "apikey": "2HPA006D8O95JJDE",
 }
+
+newsApi = requests.get(url="https://newsapi.org/v2/everything?")
 timeDay = datetime.today()
 today = str((timeDay - timedelta(days=1)).date())
 yesterday = str((timeDay - timedelta(days=2)).date())
 print(today)
 print(yesterday)
 
-
+parameter2 = {
+    "q": "Tesla",
+    "from": today,
+    "sortBy": "popularity",
+    "apiKey": "9e7fceafa0cd4b4c8837775a7ac9b3d4",
+}
 response = requests.get(url="https://www.alphavantage.co/query?", params=parameter)
 response.raise_for_status()
 data = response.json()
