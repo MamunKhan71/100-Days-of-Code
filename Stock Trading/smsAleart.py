@@ -27,5 +27,5 @@ class SmsAlert:
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=user, password=passw)
-            connection.sendmail(from_addr=user, to_addrs="mkmamun031@gmail.com", msg=f"Subject: Stock Alert \n\n{smsText}")
+            connection.sendmail(from_addr=user, to_addrs="mkmamun031@gmail.com", msg=f"Subject: Stock Alert \n\n{html.unescape(smsText)}")
             connection.close()
