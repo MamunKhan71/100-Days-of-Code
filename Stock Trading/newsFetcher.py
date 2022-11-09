@@ -20,5 +20,4 @@ class NewsFetcher:
                 "title": newsApi.json()["articles"][num]["title"],
                 "description": newsApi.json()["articles"][num]["description"]
             }
-        print(newsDictionary.values())
         return newsDictionary
