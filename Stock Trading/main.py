@@ -15,5 +15,10 @@ print(yesterday)
 response = requests.get(url="https://www.alphavantage.co/query?", params=parameter)
 response.raise_for_status()
 data = response.json()
-timeSeries = data["Time Series (Daily)"]
-print(timeSeries[today])
+todayStockMarket = float(data["Time Series (Daily)"][today]["4. close"])
+yesterdayStockMarket = float(data["Time Series (Daily)"][yesterday]["4. close"])
+percentage = round(((yesterdayStockMarket - todayStockMarket)/(
+    (todayStockMarket+yesterdayStockMarket)/2) * 100), 2)
+print(percentage)
+print(todayStockMarket)
+print(yesterdayStockMarket)
