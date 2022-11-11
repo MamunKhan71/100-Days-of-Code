@@ -47,11 +47,5 @@ for dta in data["exercises"]:
     post = requests.post(url=sheetyApiEndPoint, json=sheetyParameter)
     post.raise_for_status()
     print(post.text)
-    # sheetyParameter = {
-    #     "date": date.strftime("%d/%m/%Y"),
-    #     "time": date.strftime("%H%M%S"),
-    #     "exercise": f"(response.json()['exercises'][dt]['name'])",
-    #     "duration": f"(response.json()['exercises'][dt]['duration_min'])",
-    #     "calories": f"(response.json()['exercises'][dt]['nf_calories'])",
-    # }
+
 
