@@ -8,6 +8,7 @@ height = 167
 age = 23
 date = datetime.now()
 appKey = "0715a4a127c10cbff7bbf4477398b227"
+shettyAuth = "Basic bWFtdW4wMzE6bWFtdW5raGFuMDMx"
 sheetyApiEndPoint = "https://api.sheety.co/f3f2d6c9e76f4500056fda7540ff6199/myWorkouts/workouts"
 apiEndPoint = "https://trackapi.nutritionix.com/v2/natural/nutrients"
 exerciseEndPoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
@@ -29,7 +30,9 @@ exParameter = {
     "age": age,
 
 }
-
+sheetyHeader = {
+    "Authorization": shettyAuth,
+}
 response = requests.post(url=exerciseEndPoint, json=exParameter, headers=headers)
 data = response.json()
 today_date = datetime.now().strftime("%d/%m/%Y")
@@ -44,7 +47,7 @@ for dta in data["exercises"]:
                 "calories": dta["nf_calories"],
             }
         }
-    post = requests.post(url=sheetyApiEndPoint, json=sheetyParameter)
+    post = requests.post(url=sheetyApiEndPoint, json=sheetyParameter, headers=sheetyHeader)
     post.raise_for_status()
     print(post.text)
 
