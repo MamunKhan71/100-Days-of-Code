@@ -8,7 +8,6 @@ height = 167
 age = 23
 date = datetime.now()
 SHETTY_AUTH = os.environ.get('SHETTY_AUTH')
-print(SHETTY_AUTH)
 API_KEY = os.environ.get("API_KEY")
 
 sheetyApiEndPoint = "https://api.sheety.co/f3f2d6c9e76f4500056fda7540ff6199/myWorkouts/workouts"
@@ -37,21 +36,19 @@ sheetyHeader = {
 }
 response = requests.post(url=exerciseEndPoint, json=exParameter, headers=headers)
 data = response.json()
-print(data)
-# today_date = datetime.now().strftime("%d/%m/%Y")
-# now_time = datetime.now().strftime("%X")
-# for dta in data["exercises"]:
-#     sheetyParameter = {
-#         "workout": {
-#                 "date": today_date,
-#                 "time": now_time,
-#                 "exercise": dta["name"].title(),
-#                 "duration": dta["duration_min"],
-#                 "calories": dta["nf_calories"],
-#             }
-#         }
-#     post = requests.post(url=sheetyApiEndPoint, json=sheetyParameter, headers=sheetyHeader)
-#     post.raise_for_status()
-#     print(post.text)
-#
-#
+today_date = datetime.now().strftime("%d/%m/%Y")
+now_time = datetime.now().strftime("%X")
+for dta in data["exercises"]:
+    sheetyParameter = {
+        "workout": {
+                "date": today_date,
+                "time": now_time,
+                "exercise": dta["name"].title(),
+                "duration": dta["duration_min"],
+                "calories": dta["nf_calories"],
+            }
+        }
+    post = requests.post(url=sheetyApiEndPoint, json=sheetyParameter, headers=sheetyHeader)
+    post.raise_for_status()
+    print(post.text)
+
