@@ -13,4 +13,4 @@ class FlightSearch:
         response = requests.get(url=tqEndPoint, headers=headers, params=query)
         iData = response.json()["locations"]
         code = iData[0]["code"]
-        print(code)
+        return code

@@ -9,4 +9,7 @@ class DataManager:
     def getDestData(self):
         response = requests.get(url="https://api.sheety.co/f3f2d6c9e76f4500056fda7540ff6199/flightDeals/prices")
         data = response.json()["prices"]
+        # print(data)
         return data
+    # def updateDestData(self):
+
