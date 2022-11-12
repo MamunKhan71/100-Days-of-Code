@@ -1,6 +1,8 @@
 import requests
 from pprint import pprint
+
 SHEETY_PRICE_ENDPOINT = "https://api.sheety.co/f3f2d6c9e76f4500056fda7540ff6199/flightDeals/prices/"
+
 
 class DataManager:
     def __init__(self):
@@ -11,6 +13,7 @@ class DataManager:
         data = response.json()["prices"]
         # print(data)
         return data
+
     def updateDestData(self):
         for city in self.destination_data:
             newData = {
