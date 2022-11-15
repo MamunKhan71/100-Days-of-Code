@@ -1,8 +1,21 @@
 h2{
   color: #45b29a;
-  font-family: sans-serif;
+  font-family: consolas;
 }
 hr{
+  border-style: none;
+  border-top-style: dotted;
+  border-color: grey;
   border-width: 5px;
-
+  width: 5%
+}
+img {
+  width: 150px;
+}
+h1{
+  color: blue;
+  font-family: consolas;
+}
+p{
+  font-family: consolas;
 }
