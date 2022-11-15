@@ -22,3 +22,8 @@ p{
 body{
   background-color: white;
 }
+td{
+  font-size: 20px;
+  padding-left: 20px;
+  color: grey;
+}
