@@ -7,13 +7,13 @@ hr{
   border-top-style: dotted;
   border-color: grey;
   border-width: 5px;
-  width: 5%
+  width: 5%;
 }
 img {
   width: 150px;
 }
 h1{
-  color: blue;
+  color: black;
   font-family: consolas;
 }
 p{
@@ -25,6 +25,6 @@ body{
 td{
   font-family: consolas;
   font-size: 20px;
-  padding-left: 20px;
+  padding-left: 30px;
   color: grey;
 }
