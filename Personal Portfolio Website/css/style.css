@@ -9,7 +9,13 @@ hr{
   border-width: 5px;
   width: 5%;
 }
-img {
+.perfomance {
+  width: 150px;
+}
+.test {
+  border-radius: 150%;
+}
+.profile {
   width: 150px;
 }
 h1{
@@ -27,4 +33,7 @@ td{
   font-size: 20px;
   padding-left: 30px;
   color: grey;
+}
+#intro:hover {
+  color: blue;
 }
