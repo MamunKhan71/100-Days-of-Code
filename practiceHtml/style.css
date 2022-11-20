@@ -1,0 +1,28 @@
+div{
+  background-color: #E4F5E5;
+  height: 200px;
+  width: 200px;
+  border: solid 10px;
+  padding: 20px;
+}
+body{
+  margin: 0;
+}
+h1{
+  margin-top: 0;
+}
+.top_container{
+
+  height: 200px;
+  width: 200px;
+  border: solid 20px;
+  background-color: red;
+  margin-left: 250px;
+}
+.down_container{
+  height: 200px;
+  width: 200px;
+  border: solid 10px;
+  background-color: blue;
+  margin-left: 520px;
+}
