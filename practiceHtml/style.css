@@ -11,5 +11,14 @@ h1{
 
 }
 .down_container{
-  
+
+}
+.pro{
+  text-decoration: underline;
+}
+.block_check{
+
+  background-color: blue;
+  display: inline-block;
+  width: 100px;
 }
