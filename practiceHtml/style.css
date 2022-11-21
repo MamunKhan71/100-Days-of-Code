@@ -1,18 +1,18 @@
+body{
+  margin: 0;
+  text-align: center;
+}
 div{
 
 }
-body{
-  margin: 0;
-}
+
 h1{
-  margin-top: 0;
 }
 .top_container{
-
+  margin-top: 100px;
+  position: relative;
 }
-.down_container{
 
-}
 .pro{
   text-decoration: underline;
 }
@@ -22,3 +22,64 @@ h1{
   display: inline-block;
   width: 100px;
 }
+.cloud{
+  position: absolute;
+  right: 300px;
+  top: 50px;
+}
+.bottom_cloud{
+  position: absolute;
+  left: 300px;
+  bottom: 300px;
+}
+
+/* .container{
+  position: relative;
+  width: 600px;
+  height: 600px;
+  background-color: grey;
+}
+.red{
+  background-color: red;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  left: 400px;
+  top: 400px;
+
+
+}
+.blue{
+  background-color: blue;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+
+
+}
+.yellow{
+  background-color: yellow;
+  height: 200px;
+  width: 200px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+.purple{
+  background-color: purple;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 400px;
+  left: 0px;
+}
+.black{
+  background-color: black;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 0px;
+  left: 400px;
+} */
