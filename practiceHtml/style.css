@@ -20,6 +20,10 @@ h2{
   font-family: 'Montserrat'
 
 }
+.middle-container{
+  /* position: relative; */
+}
+
 hr{
   width: 5%;
   color: #66BFBF;
@@ -28,6 +32,32 @@ hr{
   border-top-style: dotted;
 
 }
+.skills{
+  width: 50%;
+  margin: auto;
+  font-family: 'Montserrat'
+
+}
+.skill-row{
+  line-height: 2;
+  text-align: left;
+  margin: 50px auto 20px auto;
+  font-family: 'Montserrat'
+
+
+}
+.code-image{
+  width: 20%;
+  float: left;
+  margin-right: 30px;
+}
+.chillies{
+  margin-top: 20px;
+  width: 20%;
+  float: right;
+  margin-left: 30px;
+}
+
 p{
   color: #40514E;
   font-family: 'Merriweather'
