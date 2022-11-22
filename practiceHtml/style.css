@@ -7,12 +7,33 @@ div{
 }
 
 h1{
+  color: #66BFBF;
+  font-size: 5.625rem;
+  font-family: 'Sacramento', serif;
+  margin-bottom: 10px;
+}
+h2{
+  color: #66BFBF;
+  font-size: 2.5rem;
+  font-weight: normal;
+  font-family: 'Montserrat'
+
+}
+.topcloud{
+  margin-top: 50px;
+  position: relative;
+  left: 300px;
 }
 .top_container{
-  margin-top: 100px;
+  background-color: #EAF6F6;
+
   position: relative;
 }
-
+.a{
+  font-size: 20px;
+  color: black;
+  font-family: 'Montserrat', serif;
+}
 .pro{
   text-decoration: underline;
 }
@@ -31,6 +52,12 @@ h1{
   position: absolute;
   left: 300px;
   bottom: 300px;
+}
+.myprofile{
+  margin-top: 50px;
+  position: relative;
+  height: 180px;
+  width: 180px;
 }
 
 /* .container{
