@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup
-import lxml
-with open("index.html") as file:
-    content = file.read()
+import requests
+response = requests.get("https://news.ycombinator.com/")
+webpage = response.text
 
-soup = BeautifulSoup(content, "html.parser")
-allAnchor = soup.find_all(name="li")
-
-for tag in allAnchor:
+soup = BeautifulSoup(webpage, "html.parser")
+allLinks = soup.find(name="a", class_="title")
+print(allLinks)
