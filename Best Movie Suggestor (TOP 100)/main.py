@@ -7,6 +7,9 @@ soup = BeautifulSoup(response, "html.parser")
 article_text = soup.find_all("h3", class_="title")
 
 for movieName in article_text:
-    movieList.append(movieName.getText())
+    movieList.append((movieName.getText()))
 
-print(movieList.reverse())
+with open(file="movieList.txt", mode="w", encoding="utf-8") as file:
+    for lst in movieList[::-1]:
+        file.write(f"{lst}\n")
+
