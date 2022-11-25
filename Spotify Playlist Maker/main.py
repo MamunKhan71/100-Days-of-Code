@@ -5,6 +5,7 @@ import spotipy
 from pprint import pprint
 from spotipy.oauth2 import SpotifyOAuth
 from datetime import datetime
+
 play_list_id = None
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
@@ -36,15 +37,20 @@ def playlistChecker():
         if lst['name'] == playlistCheck:
             play_list_id = lst['id']
         else:
-            playlist = spotifyLogin.user_playlist_create(
-                        user=userId,
-                        name=f"{userDate} Billboard 100",
-                        public=False,
-                        collaborative=False,
-                        description=f"A playlist of top 100 from {userDate}"
-                    )
-    pass
+            pass
 
 
-pprint(currentPlaylists[0]['name'])
-pprint(currentPlaylists)
+if play_list_id is None:
+    playlist = spotifyLogin.user_playlist_create(
+        user=userId,
+        name=f"{userDate} Billboard 100",
+        public=False,
+        collaborative=False,
+        description=f"A playlist of top 100 from {userDate}"
+    )
+    playlistChecker()
+else:
+    print(play_list_id)
+#
+# pprint(currentPlaylists[0]['name'])
+# pprint(currentPlaylists)
