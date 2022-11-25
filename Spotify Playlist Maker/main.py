@@ -18,9 +18,22 @@ songList = [song.find('h3').text.strip() for song in topSong]
 spotifyLogin = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
                                                          client_secret=client_secret, redirect_uri=redirectUrl))
 
-# userName = spotifyLogin.me()['display_name']
-# userId = spotifyLogin.me()['id']
-print(songList[0])
-spotifySearch = spotifyLogin.search(q=f"{songList[0]} {year}", limit=10, type="track", offset=0)
-# print(songList)
-pprint(spotifySearch)
+userName = spotifyLogin.me()['display_name']
+userId = spotifyLogin.me()['id']
+print(songList[1])
+songSearch = f"track: {songList[1]} year: {year}"
+spotifySearch = spotifyLogin.search(q=songSearch, limit=10, type="track", offset=0)
+
+currentPlaylists = spotifyLogin.current_user_playlists(limit=10)['items']
+for items in currentPlaylists:
+    if items['name'] not in songSearch:
+        playlist = spotifyLogin.user_playlist_create(
+            user=userId,
+            name=f"{userDate} Billboard 100"
+        )
+    else:
+        pass
+
+pprint(currentPlaylists[0]['name'])
+
+
