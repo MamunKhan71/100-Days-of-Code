@@ -39,29 +39,29 @@ playlist = spotifyLogin.user_playlist_create(
 )
 items = spotifyLogin.playlist_add_items(playlist_id=playlist['id'], items=songId[0], position=1)
 
-#
-# def playlistChecker():
-#
-#     for lst in currentPlaylists:
-#         if lst['name'] == playlistCheck:
-#             play_list_id = lst['id']
-#             return play_list_id
-#
-#     return 0
-#
-#
-# pcCheck = playlistChecker()
-# if pcCheck == 0:
-#     playlist = spotifyLogin.user_playlist_create(
-#         user=f"{userId}",
-#         name=f"{userDate} Billboard 100",
-#         public=False,
-#         description=f"A playlist of top 100 from {userDate}"
-#     )
-#     pcCheck = playlistChecker()
-#
-# else:
-#     print(pcCheck)
-#
-# pprint(currentPlaylists[0]['name'])
-# pprint(currentPlaylists)
+
+def playlistChecker():
+
+    for lst in currentPlaylists:
+        if lst['name'] == playlistCheck:
+            play_list_id = lst['id']
+            return play_list_id
+
+    return 0
+
+
+pcCheck = playlistChecker()
+if pcCheck == 0:
+    playlist = spotifyLogin.user_playlist_create(
+        user=f"{userId}",
+        name=f"{userDate} Billboard 100",
+        public=False,
+        description=f"A playlist of top 100 from {userDate}"
+    )
+    pcCheck = playlistChecker()
+
+else:
+    print(pcCheck)
+
+pprint(currentPlaylists[0]['name'])
+pprint(currentPlaylists)
