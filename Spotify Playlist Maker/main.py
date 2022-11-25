@@ -6,7 +6,6 @@ from pprint import pprint
 from spotipy.oauth2 import SpotifyOAuth
 from datetime import datetime
 
-play_list_id = int(0)
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
 redirectUrl = "http://example.com"
@@ -27,32 +26,42 @@ print(songList[1])
 songSearch = f"track: {songList[1]} year: {year}"
 playlistCheck = f"{userDate} Billboard 100"
 demoPlayListCheck = 'Music for Videos 📸'
-spotifySearch = spotifyLogin.search(q=songSearch, limit=10, type="track", offset=0)
-
-
-def playlistChecker():
-    global play_list_id
-    currentPlaylists = spotifyLogin.current_user_playlists(limit=20)['items']
-    for lst in currentPlaylists:
-        if lst['name'] == playlistCheck:
-            play_list_id = lst['id']
-            print(play_list_id)
-            break
-        else:
-            continue
-
-
-playlistChecker()
-
-if play_list_id == 0:
-    playlist = spotifyLogin.user_playlist_create(
+spotifySearch = spotifyLogin.search(q=songSearch, limit=1, type="track", offset=0)
+songId = [spotifySearch['tracks']['items'][0]['id']]
+pprint(songId)
+currentPlaylists = spotifyLogin.current_user_playlists(limit=20)['items']
+# pprint(currentPlaylists)
+playlist = spotifyLogin.user_playlist_create(
         user=f"{userId}",
         name=f"{userDate} Billboard 100",
         public=False,
         description=f"A playlist of top 100 from {userDate}"
-    )
-    playlistChecker()
+)
+items = spotifyLogin.playlist_add_items(playlist_id=playlist['id'], items=songId[0], position=1)
 
-print(play_list_id)
+#
+# def playlistChecker():
+#
+#     for lst in currentPlaylists:
+#         if lst['name'] == playlistCheck:
+#             play_list_id = lst['id']
+#             return play_list_id
+#
+#     return 0
+#
+#
+# pcCheck = playlistChecker()
+# if pcCheck == 0:
+#     playlist = spotifyLogin.user_playlist_create(
+#         user=f"{userId}",
+#         name=f"{userDate} Billboard 100",
+#         public=False,
+#         description=f"A playlist of top 100 from {userDate}"
+#     )
+#     pcCheck = playlistChecker()
+#
+# else:
+#     print(pcCheck)
+#
 # pprint(currentPlaylists[0]['name'])
 # pprint(currentPlaylists)
