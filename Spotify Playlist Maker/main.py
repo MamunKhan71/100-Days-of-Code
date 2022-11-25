@@ -6,7 +6,7 @@ from pprint import pprint
 from spotipy.oauth2 import SpotifyOAuth
 from datetime import datetime
 
-play_list_id = None
+play_list_id = int(0)
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
 redirectUrl = "http://example.com"
@@ -18,7 +18,8 @@ topSong = soup.find_all("div", class_="o-chart-results-list-row-container")
 songList = [song.find('h3').text.strip() for song in topSong]
 present = False
 spotifyLogin = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
-                                                         client_secret=client_secret, redirect_uri=redirectUrl))
+                                                         client_secret=client_secret, redirect_uri=redirectUrl,
+                                                         scope="playlist-modify-private"))
 
 userName = spotifyLogin.me()['display_name']
 userId = spotifyLogin.me()['id']
@@ -28,29 +29,30 @@ playlistCheck = f"{userDate} Billboard 100"
 demoPlayListCheck = 'Music for Videos 📸'
 spotifySearch = spotifyLogin.search(q=songSearch, limit=10, type="track", offset=0)
 
-currentPlaylists = spotifyLogin.current_user_playlists(limit=10)['items']
-
 
 def playlistChecker():
     global play_list_id
+    currentPlaylists = spotifyLogin.current_user_playlists(limit=20)['items']
     for lst in currentPlaylists:
         if lst['name'] == playlistCheck:
             play_list_id = lst['id']
+            print(play_list_id)
+            break
         else:
-            pass
+            continue
 
 
-if play_list_id is None:
+playlistChecker()
+
+if play_list_id == 0:
     playlist = spotifyLogin.user_playlist_create(
-        user=userId,
+        user=f"{userId}",
         name=f"{userDate} Billboard 100",
         public=False,
-        collaborative=False,
         description=f"A playlist of top 100 from {userDate}"
     )
     playlistChecker()
-else:
-    print(play_list_id)
-#
+
+print(play_list_id)
 # pprint(currentPlaylists[0]['name'])
 # pprint(currentPlaylists)
