@@ -34,11 +34,11 @@ for song in songList:
     songId = spotifySearch['tracks']['items'][0]['id']
     songIds.append(songId)
 
-# currentPlaylists = spotifyLogin.current_user_playlists(limit=20)['items']
+items = spotifyLogin.playlist_add_items(playlist_id=playlist['uri'], items=songIds, position=None)
+print("Playlist and Tracks Added Successfully!")
 
-
-# items = spotifyLogin.playlist_add_items(playlist_id=playlist['uri'], items=[songId[0]], position=None)
 #
+# currentPlaylists = spotifyLogin.current_user_playlists(limit=20)['items']
 # def playlistChecker():
 #
 #     for lst in currentPlaylists:
