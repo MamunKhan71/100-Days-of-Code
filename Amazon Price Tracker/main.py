@@ -20,8 +20,8 @@ priceConvert = float(f"{price.getText()}{priceFraction.getText()}")
 if priceConvert < 90:
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
-        connection.login(user=userEmail, password=passWord)
-        connection.sendmail(from_addr=userEmail,
+        connection.login(user=gmail_email, password=gmail_passWord)
+        connection.sendmail(from_addr=gmail_email,
                             to_addrs="mkmamun031@gmail.com",
                             msg=f"Subject:Buy Now \n\n Price is under 90$. Buy Now or "
                                 "loose at your own risk!")
