@@ -16,8 +16,8 @@ def sender():
     lName.send_keys("Mamun")
     email_name = driver.find_element(By.NAME, "email")
     email_name.send_keys("mamunkhan3523@diu.edu.bd")
-    email_name.send_keys(Keys.TAB)
-    email_name.send_keys(Keys.ENTER)
+    submit = driver.find_element(By.CSS_SELECTOR, "form button")
+    submit.click()
     time.sleep(10)
 sender()
 
