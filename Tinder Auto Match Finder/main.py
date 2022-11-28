@@ -22,6 +22,9 @@ fb_pass = driver.find_element(By.NAME, "pass")
 fb_pass.send_keys("AimDaP,IwCtpuD.Ia24n")
 login_btn = driver.find_element(By.NAME, "login")
 login_btn.click()
-time.sleep(10)
+time.sleep(20)
+redirect = driver.find_element(By.XPATH, '//*[@id="mount_0_0_/3"]/div/div/div/div/div/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div')
+redirect.click()
+time.sleep(5)
 
 
