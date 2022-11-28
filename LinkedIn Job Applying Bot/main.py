@@ -15,10 +15,9 @@ user_passW.send_keys(f"{user_pass}")
 submit = driver.find_element(By.CLASS_NAME, "sign-in-form__submit-button")
 submit.click()
 driver.get(
-    url="https://www.linkedin.com/jobs/search/?currentJobId=3368398382&f_LF=f_AL&geoId="
-        "102257491&keywords=digital%20marketing&location=London%2C%20England%2C%20United%20Kingdom")
+    url="https://www.linkedin.com/jobs/search/?currentJobId=3370668718&f_AL=true&geoId=102257491&keywords=digital%20marketing")
 
-apply_job = driver.find_element(By.CLASS_NAME, 'mt5')
+apply_job = driver.find_element(By.XPATH, '//*[@id="main"]/div/section[2]/div/div[2]/div[1]/div/div[1]/div/div[1]/div[1]/div[3]/div/button')
 
 apply_job.click()
 
