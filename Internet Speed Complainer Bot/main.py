@@ -27,7 +27,6 @@ log = driver.find_element(By.XPATH, '//*[@id="layers"]/div[2]/div/div/div/div/di
 log.click()
 time.sleep(4)
 userInput = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div')
-# userInput.send_keys("Hello there, I am not fine!")
 time.sleep(3)
 
 from Internet_Speed import InternetSpeedMeter
