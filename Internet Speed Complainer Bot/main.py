@@ -32,3 +32,4 @@ time.sleep(3)
 from Internet_Speed import InternetSpeedMeter
 intMeter = InternetSpeedMeter()
 intMeter.get_upload_speed()
+## Adding speed meter from Ookla!
