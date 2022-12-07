@@ -39,5 +39,5 @@ import os
 from Internet_Speed import InternetSpeedMeter
 
 intMeter = InternetSpeedMeter()
-intMeter.get_upload_speed()
-## Adding speed meter from Ookla!
+internet_speed = float((intMeter.get_upload_speed()).text)
+print(internet_speed)
