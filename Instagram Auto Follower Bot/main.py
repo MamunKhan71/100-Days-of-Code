@@ -1,11 +1,7 @@
-import time
+from InstaFollower import InstaFollower
+insta_follower = InstaFollower()
+insta_follower.login()
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-
-
-
-
-email = chromeDriver.find_element(By.NAME, 'username')
-time.sleep(5)
-email.send_keys(instaGram_userName)
+# email = chromeDriver.find_element(By.NAME, 'username')
+# time.sleep(5)
+# email.send_keys(instaGram_userName)
