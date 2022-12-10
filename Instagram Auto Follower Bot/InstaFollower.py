@@ -1,9 +1,12 @@
 import time
-from random import random
+from random import random, randint
 
 from selenium import webdriver
+from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class InstaFollower:
@@ -22,21 +25,19 @@ class InstaFollower:
         submit = self.chromeDriver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[3]/button/div')
         submit.click()
         time.sleep(5)
-        # self.chromeDriver.get(url="https://www.instagram.com/codewithharry/followers/")
-        # time.sleep(5)
-        self.find_followers()
+        self.chromeDriver.get(url="https://www.instagram.com/codewithharry/followers/")
+        time.sleep(5)
 
     def find_followers(self):
-        time.sleep(5)
-        self.chromeDriver.get(f"https://www.instagram.com/codewithharry/followers")
-
-        time.sleep(5)
-        buttons = self.chromeDriver.find_element(By.XPATH, "//button[contains(.,'Follow')]").text
-        for btn in buttons:
-            # Use the Java script to click on follow because after the scroll down the buttons will be un clickeable
-            # unless you go to it's location
-            self.chromeDriver.execute_script("arguments[0].click();", btn)
-            time.sleep(3)
+        modal = self.chromeDriver.find_element(By.CLASS_NAME, '_aano')
+        for i in range(3):
+            self.chromeDriver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            time.sleep(2)
 
     def follow(self):
-        pass
+        time.sleep(5)
+        followers = self.chromeDriver.find_elements(By.CSS_SELECTOR, 'li button')
+        for follower in followers:
+            if follower.text == 'Follow':
+                time.sleep(randint(1000, 1600) / 1000)
+                follower.click()
