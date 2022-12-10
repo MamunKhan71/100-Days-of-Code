@@ -1,8 +1,10 @@
 import time
+from random import random
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
 
 class InstaFollower:
     def __init__(self):
@@ -20,15 +22,21 @@ class InstaFollower:
         submit = self.chromeDriver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[3]/button/div')
         submit.click()
         time.sleep(5)
-        self.chromeDriver.get(url="https://www.instagram.com/codewithharry/")
-        time.sleep(5)
-        followers = self.chromeDriver.find_element(By.XPATH, '//*[@id="mount_0_0_d6"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div/header/section/ul/li[2]').find_element(By.TAG_NAME, 'a')
-        followers.click()
-        time.sleep(10)
-
+        # self.chromeDriver.get(url="https://www.instagram.com/codewithharry/followers/")
+        # time.sleep(5)
+        self.find_followers()
 
     def find_followers(self):
-        pass
+        time.sleep(5)
+        self.chromeDriver.get(f"https://www.instagram.com/codewithharry/followers")
+
+        time.sleep(5)
+        buttons = self.chromeDriver.find_element(By.XPATH, "//button[contains(.,'Follow')]").text
+        for btn in buttons:
+            # Use the Java script to click on follow because after the scroll down the buttons will be un clickeable
+            # unless you go to it's location
+            self.chromeDriver.execute_script("arguments[0].click();", btn)
+            time.sleep(3)
 
     def follow(self):
         pass
