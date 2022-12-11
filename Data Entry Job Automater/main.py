@@ -14,9 +14,13 @@ url = "https://www.zillow.com/homes/for_rent/?searchQueryState=%7B%22pagination%
       "%22value%22%3Afalse%7D%2C%22fr%22%3A%7B%22value%22%3Atrue%7D%2C%22fsbo%22%3A%7B%22value%22%3Afalse%7D%2C" \
       "%22cmsn%22%3A%7B%22value%22%3Afalse%7D%2C%22fsba%22%3A%7B%22value%22%3Afalse%7D%7D%2C%22isListVisible%22" \
       "%3Atrue%7D "
+property_name = []
 web_list = requests.get(url=url, headers=header).content
 soup = BeautifulSoup(web_list, 'html.parser')
-print(soup)
-data = soup.find("div", class_="StyledPropertyCardDataArea-c11n-8-73-8__sc-yipmu-0 hRqIYX")
-pprint(data)
+html_link = soup.find_all('a', class_='property-card-link')
+for link in html_link:
+    link_text = link.text
+    property_name.append(link_text)
 
+while "" in property_name:
+    property_name.remove("")
