@@ -2,6 +2,7 @@ from pprint import pprint
 
 import requests
 from bs4 import BeautifulSoup
+
 header = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
     "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
@@ -15,12 +16,23 @@ url = "https://www.zillow.com/homes/for_rent/?searchQueryState=%7B%22pagination%
       "%22cmsn%22%3A%7B%22value%22%3Afalse%7D%2C%22fsba%22%3A%7B%22value%22%3Afalse%7D%7D%2C%22isListVisible%22" \
       "%3Atrue%7D "
 property_name = []
+property_price = []
 web_list = requests.get(url=url, headers=header).content
 soup = BeautifulSoup(web_list, 'html.parser')
-html_link = soup.find_all('a', class_='property-card-link')
-for link in html_link:
+html_address = soup.find_all('a', class_='property-card-link')
+html_price = soup.find_all('div', class_='StyledPropertyCardDataArea-c11n-8-73-8__sc-yipmu-0 hRqIYX')
+# print(html_price[0])
+
+
+for link in html_address:
     link_text = link.text
     property_name.append(link_text)
 
 while "" in property_name:
     property_name.remove("")
+for price in html_price:
+    prices = (price.text.split('+')[0]).split('/')[0]
+    property_price.append(prices)
+
+print(property_price)
+print(property_name)
