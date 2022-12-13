@@ -1,11 +1,14 @@
 import re
+import time
 from pprint import pprint
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
 
 header = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/84.0.4147.125 Safari/537.36",
     "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
 }
 url = "https://www.zillow.com/homes/for_rent/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22mapBounds%22%3A%7B" \
@@ -23,8 +26,6 @@ web_list = requests.get(url=url, headers=header).content
 soup = BeautifulSoup(web_list, 'html.parser')
 html_name = soup.find_all('a', class_='property-card-link')
 html_price = soup.find_all('div', class_='StyledPropertyCardDataArea-c11n-8-73-8__sc-yipmu-0 hRqIYX')
-# print(html_price[0])
-
 
 for link in html_name:
     link_text = link.text
@@ -46,4 +47,15 @@ for pr in property_link:
     new_address = f"https://www.zillow.com/{pr['href']}"
     property_links.append(new_address)
 
-print(property_links)
+driver = webdriver.Chrome("C://chromedriver.exe")
+driver.get(url="https://forms.gle/gjB9ZSGX82agahvr9")
+p_address = driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+time.sleep(2)
+p_address.send_keys(property_name[0])
+p_price = driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
+p_price.send_keys(property_price[0])
+p_links = driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
+p_links.send_keys(property_links[0])
+time.sleep(5)
+
+
