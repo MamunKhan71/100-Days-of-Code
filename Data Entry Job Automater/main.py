@@ -1,7 +1,8 @@
+import re
 from pprint import pprint
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 
 header = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
@@ -19,20 +20,22 @@ property_name = []
 property_price = []
 web_list = requests.get(url=url, headers=header).content
 soup = BeautifulSoup(web_list, 'html.parser')
-html_address = soup.find_all('a', class_='property-card-link')
+html_name = soup.find_all('a', class_='property-card-link')
 html_price = soup.find_all('div', class_='StyledPropertyCardDataArea-c11n-8-73-8__sc-yipmu-0 hRqIYX')
 # print(html_price[0])
 
 
-for link in html_address:
-    link_text = link.text
-    property_name.append(link_text)
-
-while "" in property_name:
-    property_name.remove("")
-for price in html_price:
-    prices = (price.text.split('+')[0]).split('/')[0]
-    property_price.append(prices)
-
-print(property_price)
-print(property_name)
+# for link in html_address:
+#     link_text = link.text
+#     property_name.append(link_text)
+#
+# while "" in property_name:
+#     property_name.remove("")
+# for price in html_price:
+#     prices = (price.text.split('+')[0]).split('/')[0]
+#     property_price.append(prices)
+#
+# print(property_price)
+# print(property_name)
+for link in soup.find_all('a', href=True, class_='property-card-link'):
+    print(link['href'])
