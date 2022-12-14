@@ -1,13 +1,13 @@
 import time
 
-current_time = time.time()
-
 
 def speed_calc_decorator(function):
     def wrapper_function():
+        current_time = time.time()
         function()
-        total_time = time.time() - current_time
-        print(total_time)
+        after_time = time.time()
+        time_diff = after_time - current_time
+        print(f"Function Name : {function.__name__}\nRun Speed: {round(time_diff, 2)}s")
 
     return wrapper_function
 
