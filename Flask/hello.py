@@ -4,25 +4,32 @@ app = Flask(__name__)
 
 
 def bold_maker(function):
-    def wrapper_f(*args):
-        return f"<b>{args[0]}</b>"
+    def wrapper_f():
+        return "<b>" + function() + "</b>"
 
     return wrapper_f
 
 
-@app.route("/")
+def emphasis_maker(function):
+    def wrapper_f():
+        return "<em>" + function() + "</em>"
+
+    return wrapper_f
+
+
+def underline_maker(function):
+    def wrapper_f():
+        return "<u>" + function() + "</u>"
+    return wrapper_f
+
+
+@app.route("/hi")
+@bold_maker
+@underline_maker
+@emphasis_maker
 def say_hi():
     return "Hello Hi!"
 
 
-@app.route("/bye")
-@bold_maker
-def greet(users):
-    return f"Hello Hi {users}"
-
-
 if __name__ == "__main__":
     app.run(debug=True)
-    say_hi()
-
-greet("Mamun")
