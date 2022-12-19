@@ -49,4 +49,4 @@ def a_function(a, b, c):
 a_function(1, 2, 3)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
