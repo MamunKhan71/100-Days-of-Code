@@ -1,16 +1,43 @@
-# NATO Alphabet Converter!
-import pandas
-natoLetter = pandas.read_csv("nato_phonetic_alphabet.csv")
+from flask import Flask
 
-newList = {row.letter: row.code for (index, row) in natoLetter.iterrows()}
+app = Flask(__name__)
 
-looper = True
-while looper:
-    userInput = input("Enter Your Name: ").upper()
-    try:
-        nameList = [newList[letter] for letter in userInput]
-    except KeyError:
-        print("Only Letters Are Allowed!")
-    else:
-        print(nameList)
-        break
+
+def bold_maker(function):
+    def wrapper_f():
+        return "<b>" + function() + "</b>"
+
+    return wrapper_f
+
+
+def emphasis_maker(function):
+    def wrapper_f():
+        return "<em>" + function() + "</em>"
+
+    return wrapper_f
+
+
+def underline_maker(function):
+    def wrapper_f():
+        return "<u>" + function() + "</u>"
+
+    return wrapper_f
+
+
+#
+# @app.route('/hi')
+#
+#
+# def say_hi():
+#     return "Hello Hi!"
+#
+
+@app.route('/')
+@bold_maker
+@underline_maker
+@emphasis_maker
+def hello_world():
+    return 'Hello, World!'
+
+
+app.run()
