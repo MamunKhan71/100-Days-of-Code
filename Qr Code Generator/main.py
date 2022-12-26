@@ -3,7 +3,7 @@ import pyqrcode
 
 
 def qrcode():
-    q = pyqrcode.create(input())
+    q = pyqrcode.create(input("Please Enter the URL: "))
     q.png('qrcode.png', scale=6)
     print("Qr code generated successfully!")
 
