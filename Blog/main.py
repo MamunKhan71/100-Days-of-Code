@@ -1,12 +1,20 @@
 from flask import Flask, render_template
-from datetime import datetime
+import requests
+
 app = Flask(__name__)
 
 
-@app.route("/")
-def sayHi():
-    year_now = datetime.now().year
-    return render_template("index.html", num=year_now)
+@app.route("/guess/<name>")
+def sayHi(name):
+    parameter = {
+        'name': {name}
+    }
+    web = requests.get(url=f"https://api.genderize.io/", params=parameter).json()
+    gender = web['gender']
+    ageWeb = requests.get(url="https://api.agify.io/", params=parameter).json()
+    age = ageWeb['age']
+
+    return render_template("index.html", name=name, gen=gender, age=age)
 
 
 if __name__ == "__main__":
