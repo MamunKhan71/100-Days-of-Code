@@ -4,17 +4,17 @@ import requests
 app = Flask(__name__)
 
 
-@app.route("/guess/<name>")
-def sayHi(name):
-    parameter = {
-        'name': {name}
-    }
-    web = requests.get(url=f"https://api.genderize.io/", params=parameter).json()
-    gender = web['gender']
-    ageWeb = requests.get(url="https://api.agify.io/", params=parameter).json()
-    age = ageWeb['age']
+@app.route("/")
+def greet():
+    return "Hello World"
 
-    return render_template("index.html", name=name, gen=gender, age=age)
+
+@app.route("/blog/<num>")
+def get_blog(num):
+    print(num)
+    web = requests.get(url="https://api.npoint.io/fb47f0cb31915fe52376")
+    all_post = web.json()
+    return render_template("index.html", blogPost=all_post)
 
 
 if __name__ == "__main__":

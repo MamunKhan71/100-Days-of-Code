@@ -4,11 +4,14 @@
     <title>Guess Me</title>
     </head>
     <body>
-        <p> Hey {{name.title()}},</p>
-        <p>I think you are {{gen}},</p>
-        <p>And maybe you are {{age}} years old.</p>
+       {% for post in blogPost: %}
+            {% if post["id"] == 2 %}
+                <h1>{{  post["title"] }}</h1>
+                <h2>{{  post["subtitle"] }}</h2>
+            {% endif %}
+       {% endfor %}
     </body>
-    <hr>
+    <a href= "{{ url_for('get_blog') }}">Click Here</a>
 <footer>
     <p>Copyright ©{{num}} - By Md. Mamun</p>
 </footer>
