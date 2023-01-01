@@ -74,3 +74,19 @@ h2{
   background-color: #ef8172;
   color: white;
 }
+.testimonial-image{
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+/* press */
+#press{
+  background-color: #ef8172;
+  text-align: center;
+  padding: 0 0 5% 0;
+}
+.test-img{
+  width: 15%;
+  margin: 20px;
+}
