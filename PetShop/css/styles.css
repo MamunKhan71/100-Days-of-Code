@@ -1,6 +1,16 @@
-h1 {
+/* Body Starts Here */
+
+body{
   font-family: 'Montserrat', sans-serif;
-  /* font-family: 'Ubuntu', sans-serif; */
+  text-align: center;
+}
+
+/* Headings Starts Here */
+h1,2,h3,h4,h5,h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.big-header{
   font-size: 3.5rem;
   line-height: 1.5;
   font-weight: 900;
@@ -8,18 +18,16 @@ h1 {
 }
 #title{
   background-color: #ff4c68;
+  text-align: left;
 }
 .container-fluid{
   padding: 3% 15% 10%;
   padding-bottom: 5.4rem;
-
 }
 .navbar{
   padding-bottom: 4.5rem;
 }
-body{
-  font-family: 'Montserrat', sans-serif;
-}
+
 .navbar-brand{
   font-family: 'Ubuntu';
   font-size: 2rem;
@@ -88,7 +96,6 @@ h2{
 
 /* Testimonials */
 #testimonials{
-  text-align: center;
   background-color: #ef8172;
   color: white;
 }
@@ -103,7 +110,6 @@ h2{
 /* press */
 #press{
   background-color: #ef8172;
-  text-align: center;
   padding: 0 0 5% 0;
 }
 .test-img{
@@ -121,18 +127,15 @@ h2{
 /* Call To Action */
 #cta{
   background-color: #ff4c68;
-  text-align: center;
   padding-bottom: 10%;
 }
 .footer-text{
   font-size: 3rem;
   padding: 5% 15% 0;
-  text-align: center;
   color: white;
 }
 #footer{
   padding-top: 5%;
-  text-align: center;
 }
 .fa-footer{
   color: black;
