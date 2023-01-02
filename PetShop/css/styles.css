@@ -10,7 +10,7 @@ h1 {
   background-color: #ff4c68;
 }
 .container-fluid{
-  padding: 3% 15%;
+  padding: 3% 15% 10%;
   padding-bottom: 5.4rem;
 
 }
@@ -35,9 +35,30 @@ body{
 .download-btn{
   margin: 5% 3% 5% 0;
 }
+
 .image-title{
-  width: 60%;
+  position: absolute;
+  /* z-index: 0;
+  top: 250px; */
+  width: 22%;
+  right: 25%;
   transform: rotate(25deg);
+}
+#features{
+  background-color: white;
+  position: relative;
+  padding: 7% 15%;
+}
+
+@media (max-width:1028px) {
+  #title{
+    text-align: center;
+  }
+  .image-title{
+    position: static;
+    width: 60%;
+    transform: rotate(0);
+  }
 }
 /* Second Section */
 h3{
@@ -56,9 +77,7 @@ h2{
   width: 75%;
 }
 
-#features{
-    padding: 7% 0 7% 0;
-}
+
 .icon{
   color: #ef8172;
   margin: 20px;
@@ -93,8 +112,37 @@ h2{
 }
 #pricing{
   padding: 50px;
-  margin: 20px;
+  margin: 50px;
 }
 .simple-txt{
   padding-bottom: 50px;
+}
+
+/* Call To Action */
+#cta{
+  background-color: #ff4c68;
+  text-align: center;
+  padding-bottom: 10%;
+}
+.footer-text{
+  font-size: 3rem;
+  padding: 5% 15% 0;
+  text-align: center;
+  color: white;
+}
+#footer{
+  padding-top: 5%;
+  text-align: center;
+}
+.fa-footer{
+  color: black;
+  margin: 10px;
+  padding-bottom: 10px;
+}
+.fa-footer:hover{
+  color: blue;
+}
+p{
+  color: #8f8f8f;
+
 }
