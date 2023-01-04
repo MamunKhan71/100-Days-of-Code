@@ -24,9 +24,9 @@ def contact():
    if request.method == "POST":
        print(
            f"Name: {request.form['name']}\nEmail:{request.form['email']}\nPhone: {request.form['phone']}\nMessage: {request.form['message']}")
-       return "<h1> Message Sent Successful! </h1>"
+       return render_template("contact.html", sms_sent=True)
    else:
-       return render_template("contact.html")
+       return render_template("contact.html", sms_sent=False)
 
 if __name__ == "__main__":
     app.run(debug=True)
