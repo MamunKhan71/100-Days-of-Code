@@ -40,12 +40,12 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
-                    {% for links in urls %}
+                    {% for i in range(0,total_news) %}
                         <hr class="my-4" />
                         <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">{{ links['title'] }}</h2>
-                            <h3 class="post-subtitle">{{ links['subtitle'] }}</h3>
+                        <a href="{{ url_for('post', pid=i) }}">
+                            <h2 class="post-title">{{ urls[i]['title'] }}</h2>
+                            <h3 class="post-subtitle">{{ urls[i]['subtitle'] }}</h3>
                         </a>
                         <p class="post-meta">
                             Posted by
