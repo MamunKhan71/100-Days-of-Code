@@ -34,10 +34,7 @@ def home():
 def add_cafe():
     form = CafeForm()
     if form.validate_on_submit():
-        print("True")
-    # Exercise:
-    # Make the form write a new row into datas.csv
-    # with   if form.validate_on_submit()
+        
     return render_template('add.html', form=form)
 
 
@@ -48,7 +45,10 @@ def cafes():
         list_of_rows = []
         for row in csv_data:
             list_of_rows.append(row)
-    return render_template('cafes.html', cafes=list_of_rows)
+        cafe_list_length = len(list_of_rows)
+        cafe_col_length = len(list_of_rows[0])
+        print(cafe_col_length)
+    return render_template('cafes.html', cafes=list_of_rows, crLen=cafe_list_length, ccLen=cafe_col_length)
 
 
 if __name__ == '__main__':

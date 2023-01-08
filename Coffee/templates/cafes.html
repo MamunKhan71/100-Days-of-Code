@@ -4,7 +4,6 @@
 {% block styles %}
     {{ super() }}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" >
-
 {% endblock %}
 {% block content %}
 
@@ -15,17 +14,29 @@
       <h1>All Cafes</h1>
 
 	  <table class="table">
-          <thead>
-            <tr>
-                <th>{{ cafes[0][0] }}</th>
-                <th>{{ cafes[0][1] }}</th>
-                <th>{{ cafes[0][2] }}</th>
-                <th>{{ cafes[0][3] }}</th>
-                <th>{{ cafes[0][4] }}</th>
-                <th>{{ cafes[0][5] }}</th>
-                <th>{{ cafes[0][6] }}</th>
+      <thead>
+        <tr>
+          {% for i in range(0,crLen) %}
+              {% if i==0 %}
+                  {% for j in range(0, ccLen) %}
+                        <th>{{ cafes[i][j] }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              {% elif i > 0 %}
+              <tbody>
+                <tr>
+                  {% for j in range(0, ccLen) %}
+                      {% if j==1 %}
+                            <td><a href="{{ cafes[i][j] }}">Maps Link</a></td>
+                      {% else %}
+                            <td>{{ cafes[i][j] }}</td>
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          {% endfor %}
             </tr>
-          </thead>
+          </tbody>
   	  </table>
 
       <p><a href="#">Return to index page</a></p>
