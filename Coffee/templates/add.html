@@ -1,9 +1,11 @@
 {% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %}Add A New Cafe{% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/styles.css') }}" >
 {% endblock %}
 
 {% block content %}
@@ -12,9 +14,7 @@
     <div class="col-sm-12 col-md-8">
 
       <h1>Add a new cafe into the database</h1>
-
-      <!-- This is where your WTForm will go -->
-
+            {{ wtf.quick_form(form, novalidate=True) }}
 	  <p class="space-above"><a href="#">See all cafes</a></p>
 
     </div>
