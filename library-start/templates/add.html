@@ -5,12 +5,14 @@
     <title>Add Book</title>
 </head>
 <body>
-    <form action="/add_data" method="POST">
-        <label for="book_name">Book Name</label>
+    <form action="/add" method="POST">
+        <label for="book_id">Book Id : </label>
+        <input type="text" name="book_id" id="book_id">
+        <label for="book_name">Book Name : </label>
         <input type="text" name="book_name" id="book_name">
-        <label>Book Author</label>
+        <label>Book Author : </label>
         <input type="text" name="book_author">
-        <label>Rating</label>
+        <label>Rating : </label>
         <input type="text" name="book_rating">
         <button type="submit">Add Book</button>
     </form>
