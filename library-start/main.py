@@ -3,6 +3,13 @@ from flask_wtf import FlaskForm
 from sqlalchemy import create_engine, Integer, Float, String, CHAR, Column
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from wtforms import StringField, SubmitField
+
+
+class form(FlaskForm):
+    book_name = StringField('Book Name')
+    submit = SubmitField("Search")
+
 
 Base = declarative_base()
 
@@ -33,6 +40,7 @@ app = Flask(__name__)
 app.secret_key = "any-string-you-want-just-keep-it-secret"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+
 @app.route('/')
 def home():
     return render_template("index.html")
@@ -50,6 +58,15 @@ def add():
         session.commit()
         return "<h1> Data Added Successfully! </h1>"
     return render_template("add.html")
+
+
+@app.route("/query", methods=["GET", "POST"])
+def query():
+    newForm = form()
+    if request.method == "POST":
+        data = session.query(book_information).filter(book_information.book_name.like(newForm.book_name.data))
+        return f"<hr><h2>Search Result: {data[0].book_author}</h2><hr>"
+    return render_template("query.html", form=newForm)
 
 
 if __name__ == "__main__":
