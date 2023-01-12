@@ -9,7 +9,7 @@
 <h1>Query</h1>
     <form method="post" action="{{ url_for('query') }}">
           {{ form.csrf_token }}
-          {{ form.book_name.label }} {{ form.book_name(size=30) }}
+          {{ form.book_id.label }} {{ form.book_id(size=30) }}
           {{ form.submit }}
     </form>
 </body>

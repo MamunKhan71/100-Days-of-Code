@@ -10,8 +10,8 @@
         <p>Library is Empty</p>
     {% else %}
         <ul>
-            {% for dt in data %}
-                <li>{{ dt['title'] }}-{{ dt['author'] }}-{{ dt['rating'] }}</li>
+            {% for dt in book_list %}
+                <li>{{ dt.book_name }} - {{ dt.book_author }} - <b>{{ dt.book_rating }}/10.0</b></li>
             {% endfor %}
         </ul>
     {% endif %}
