@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
 from sqlalchemy import create_engine, Integer, Float, String, CHAR, Column
@@ -80,6 +82,14 @@ def query():
         session.delete(book)
         session.commit()
     return render_template("query.html", form=newForm)
+
+
+@app.route('/edit?id=<ids>')
+def edit(ids):
+    print(len(ids))
+    session = Session()
+    books = session.query(book_information).filter(book_information)
+    return render_template("edit.html", books=book_information, ids=int(ids))
 
 
 if __name__ == "__main__":
