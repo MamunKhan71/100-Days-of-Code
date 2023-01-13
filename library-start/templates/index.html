@@ -11,7 +11,7 @@
     {% else %}
         <ul>
             {% for dt in book_list %}
-                <li><p>{{ dt.book_name }} - {{ dt.book_author }} - <b>{{ dt.book_rating }}/10.0</b> <a href="{{ url_for('edit', ids=) }}">Edit Rating</a></p></li>
+                <li><p>{{ dt.book_name }} - {{ dt.book_author }} - <b>{{ dt.book_rating }}/10.0</b> <a href="{{ url_for('edit', ids=dt.book_id) }}">Edit Rating</a></p></li>
             {% endfor %}
         </ul>
     {% endif %}

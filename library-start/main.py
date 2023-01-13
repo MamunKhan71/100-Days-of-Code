@@ -9,12 +9,17 @@ from wtforms import StringField, SubmitField, IntegerField
 import os
 
 
-class form(FlaskForm):
+class form_f(FlaskForm):
     book_id = IntegerField('Book Name')
     submit = SubmitField("Search")
 
 
 Base = declarative_base()
+
+
+class editForm(FlaskForm):
+    book_edit = IntegerField("book_id")
+    submit = SubmitField("update")
 
 
 class book_information(Base):
@@ -69,27 +74,40 @@ def add():
             return redirect(url_for('home'))
         else:
             session.close()
-            return "book_id already exists in the table!"
+            return "<h1>book_id already exists in the table!</h1>"
     return render_template("add.html")
 
 
-@app.route("/query", methods=["GET", "POST"])
-def query():
-    session = Session()
-    newForm = form()
-    if request.method == "POST":
-        book = session.query(book_information).filter(form.book_id.data)
-        session.delete(book)
-        session.commit()
-    return render_template("query.html", form=newForm)
+# @app.route("/query", methods=["GET", "POST"])
+# def query():
+#     session = Session()
+#     newForm = form_f()
+#     if request.method == "POST":
+#         book = session.query(book_information).filter(book_information.)
+#         session.delete(book)
+#         session.commit()
+#     return render_template("query.html", form_f=newForm)
 
 
-@app.route('/edit?id=<ids>')
-def edit(ids):
-    print(len(ids))
+@app.route('/edit', methods=["GET", "POST"])
+def edit():
     session = Session()
-    books = session.query(book_information).filter(book_information)
-    return render_template("edit.html", books=book_information, ids=int(ids))
+    edit_form = editForm()
+    selected_book_id = request.args.get('ids')
+    book_to_update = session.query(book_information).filter(book_information.book_id == selected_book_id)
+    print(book_to_update.book_rating)
+    # if request.method == "POST":
+    #     print(book_to_update.book_rating)
+    #     book_to_update.book_rating = edit_form.data['book_edit']
+    #     print(book_to_update.book_rating)
+    #     book_to_update = session.query(book_information).filter_by(book_id=selected_book_id)
+    #     print(book_to_update)
+    return render_template("edit.html", edit_form=edit_form)
+    # edit_form = editForm()
+    # return render_template("edit.html", edit_form=edit_form)
+
+    # books = session.query(book_information).filter(book_information).first()
+    # return render_template("edit.html", books=books, ids=int(ids))
 
 
 if __name__ == "__main__":

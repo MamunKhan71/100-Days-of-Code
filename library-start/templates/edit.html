@@ -6,9 +6,12 @@
     <body>
         <h1>Edit Book Rating</h1>
         <hr>
-        <p>{{ books. }}</p>
-        <label for="book_edit"></label>
-        <input name="book_edit" id="book_edit">
+<!--        <p>{{ books }}</p>-->
+        <form action="/edit?id=<ids>" method="POST">
+            {{ edit_form.csrf_token }}
+            {{ edit_form.book_edit.label }} {{ edit_form.book_edit(size=30) }}
+            {{ edit_form.submit }}
+        </form>
     </body>
 
 </html>
