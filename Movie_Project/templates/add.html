@@ -11,6 +11,7 @@
 
 {% block content %}
 <div class="content">
+     {% if add == "True" %}
     <h1 class="heading">Add a Movie</h1>
      <form method="post">
          {{ form.csrf_token }}
@@ -18,6 +19,14 @@
          <p>{{ form.new_movie_title }}</p>
          <p>{{ form.button }}</p>
      </form>
+     {% else %}
+        <h1 class="heading">Select Movie</h1>
+             <div class="container">
+             {% for lst in form %}
+                 <li style="padding: 5px 0"><a href="{{ url_for('movie_adder', m_id=lst.id) }}"> {{ lst.original_title}} - {{ lst.release_date }} </a></li>
+             {% endfor %}
+             </div>
+     {% endif %}
 </div>
 
 {% endblock %}
