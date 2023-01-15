@@ -12,5 +12,12 @@
 {% block content %}
 <div class="content">
     <h1 class="heading">Add a Movie</h1>
+     <form method="post">
+         {{ form.csrf_token }}
+         <p>{{ form.new_movie_title.label }}</p>
+         <p>{{ form.new_movie_title }}</p>
+         <p>{{ form.button }}</p>
+     </form>
 </div>
+
 {% endblock %}

@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import pytest as pytest
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
@@ -43,6 +45,11 @@ class Movie(db.Model):
 
     def __repr__(self):
         return f"{self.id} {self.title} {self.year} {self.description} {self.rating} {self.ranking} {self.review} {self.img_url}"
+
+
+class AddMovie(FlaskForm):
+    new_movie_title = StringField("Movie Title")
+    button = SubmitField("Add Movie")
 
 
 with app.app_context():
@@ -97,9 +104,20 @@ def edit():
     return render_template("edit.html", form=form, movie_id=movie_details)
 
 
-@app.route('/add')
+@app.route('/add', methods=["GET", "POST"])
 def add_movie():
-    return render_template("add.html")
+    movie = AddMovie()
+    if request.method == "POST":
+        header = {
+        }
+        parameter = {
+            "api_key": "d92afb5b1311f973b1e4d88ab1b1d9c7",
+            "query": movie.new_movie_title.data
+        }
+        data = requests.get(url="https://api.themoviedb.org/3/search/movie", params=parameter).json()
+        
+
+    return render_template("add.html", form=movie)
 
 
 if __name__ == "__main__":
