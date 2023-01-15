@@ -29,8 +29,7 @@
         </div>
           <p class="review">{{ movies.review }}</p>
         <p class="overview">{{ movies.description }}</p>
-
-        <a href="#" class="button">Update</a>
+        <a href="{{url_for('edit', id=movies.id)}}" class="button">Update</a>
         <a href="#" class="button delete-button">Delete</a>
 
       </div>
