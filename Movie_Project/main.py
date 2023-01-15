@@ -76,17 +76,21 @@ def home():
     return render_template("index.html", movie=movie)
 
 
-@app.route('/edit',  methods=["GET", "POST"])
+@app.route('/edit', methods=["GET", "POST"])
 def edit():
     form = RateMovieForm()
     movie_id = int(request.args.get("id"))
     movie_details = db.session.query(Movie).filter(movie_id == Movie.id).first()
-    if request.method == "POST":
-        if form.validate_on_submit():
-            movie_details.rating = form.rating.data
-            movie_details.review = form.review.data
-            db.session.commit()
-            return redirect(url_for('home'))
+    delete = request.args.get("delete")
+    if delete == "YES":
+        return "deleted"
+    else:
+        if request.method == "POST":
+            if form.validate_on_submit():
+                movie_details.rating = form.rating.data
+                movie_details.review = form.review.data
+                db.session.commit()
+                return redirect(url_for('home'))
 
     return render_template("edit.html", form=form, movie_id=movie_details)
 
