@@ -81,9 +81,11 @@ def edit():
     form = RateMovieForm()
     movie_id = int(request.args.get("id"))
     movie_details = db.session.query(Movie).filter(movie_id == Movie.id).first()
-    delete = request.args.get("delete")
-    if delete == "YES":
-        return "deleted"
+    if request.args.get("delete") == "YES":
+        movie_delete = Movie.query.get(movie_id)
+        db.session.delete(movie_delete)
+        db.session.commit()
+        return redirect(url_for('home'))
     else:
         if request.method == "POST":
             if form.validate_on_submit():
@@ -93,6 +95,11 @@ def edit():
                 return redirect(url_for('home'))
 
     return render_template("edit.html", form=form, movie_id=movie_details)
+
+
+@app.route('/add')
+def add_movie():
+    return render_template("add.html")
 
 
 if __name__ == "__main__":
