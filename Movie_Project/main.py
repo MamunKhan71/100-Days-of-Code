@@ -66,9 +66,7 @@ with app.app_context():
     #     review="My favourite character was the caller.",
     #     img_url="https://image.tmdb.org/t/p/w500/tjrX2oWRCM3Tvarz38zlZM7Uc10.jpg"
     # )
-    # existing_movie = Movie.query.filter_by(title=new_movie.title).first()
-    # if not existing_movie:
-    #     db.session.add(new_movie)
+
     #     db.session.commit()
 
 
@@ -133,15 +131,16 @@ def movie_adder():
                 year=dst["release_date"],
                 description=dst["overview"],
                 rating=dst["vote_average"],
-                ranking=" ",
-                review=" ",
-                img_url=f"https://www.themoviedb.org/t/p/original{dst['poster_path']}"
+                ranking=0,
+                review=0,
+                img_url=f"https://www.themoviedb.org/t/p/original{dst['poster_path']}",
             )
-            db.session.add(new_m)
-            db.session.commit()
-            movie_details = db.session.query(Movie).filter(fetch_id == Movie.id).first()
+            movie_details = db.session.query(Movie).filter_by(title=dst["original_title"]).first()
+            if not movie_details:
+                db.session.add(new_m)
+                db.session.commit()
             if request.args.get("delete") == "YES":
-                movie_delete = Movie.query.get(movie_id)
+                movie_delete = Movie.query.get(movie_details.id)
                 db.session.delete(movie_delete)
                 db.session.commit()
                 return redirect(url_for('home'))
