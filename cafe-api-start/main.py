@@ -34,8 +34,7 @@ def home():
 def random_route():
     cafe = Cafe()
     user = db.session.execute(db.select(Cafe).filter_by().scalar_one()
-    for dt in user:
-        print(dt)
+
 
 ## HTTP POST - Create Record
 
