@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import random
@@ -11,7 +13,7 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 
 db = SQLAlchemy(app)
 
-
+db_all = []
 ## Cafe TABLE Configuration
 class Cafe(db.Model):
     __tablename__ = "cafe"
@@ -26,6 +28,9 @@ class Cafe(db.Model):
     has_sockets = db.Column(db.Boolean, nullable=False)
     can_take_calls = db.Column(db.Boolean, nullable=False)
     coffee_price = db.Column(db.String(250), nullable=True)
+
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
 with app.app_context():
@@ -42,20 +47,24 @@ def home():
 def random_route():
     new_db = db.session.query(Cafe).all()
     random_cafe = random.choice(new_db)
-    return jsonify(
-        can_take_calls=random_cafe.can_take_calls,
-        coffee_price=random_cafe.coffee_price,
-        has_sockets=random_cafe.has_sockets,
-        has_toilet=random_cafe.has_toilet,
-        has_wifi=random_cafe.has_wifi,
-        id=random_cafe.id,
-        img_url=random_cafe.img_url,
-        location=random_cafe.location,
-        map_url=random_cafe.map_url,
-        name=random_cafe.name,
-        seats=random_cafe.seats,
-    )
+    return jsonify(cafe=random_cafe.to_dict())
 
+
+@app.route('/all')
+def all_cafe():
+    global db_all
+    data = db.session.query(Cafe).all()
+    for datas in data:
+        new_data = datas.to_dict()
+        db_all.append(new_data)
+    return jsonify(cafes=db_all)
+
+@app.route('/search', methods = ["GET", "POST"])
+def search():
+
+    argument = request.args.get("loc")
+    search_data = db.session.query(Cafe).filter_by(location=argument).first().to_dict()
+    return jsonify(search_data)
 
 ## HTTP POST - Create Record
 
