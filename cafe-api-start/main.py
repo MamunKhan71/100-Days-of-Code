@@ -14,6 +14,8 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 db = SQLAlchemy(app)
 
 db_all = []
+
+
 ## Cafe TABLE Configuration
 class Cafe(db.Model):
     __tablename__ = "cafe"
@@ -59,12 +61,20 @@ def all_cafe():
         db_all.append(new_data)
     return jsonify(cafes=db_all)
 
-@app.route('/search', methods = ["GET", "POST"])
-def search():
 
+@app.route('/search', methods=["GET", "POST"])
+def search():
     argument = request.args.get("loc")
-    search_data = db.session.query(Cafe).filter_by(location=argument).first().to_dict()
-    return jsonify(search_data)
+    try:
+        search_data = db.session.query(Cafe).filter_by(location=argument).first().to_dict()
+        return jsonify(search_data)
+    except:
+        return jsonify(
+            error={
+                "Not Found": "Sorry, we don't have a cafe at that location."
+            }
+        )
+
 
 ## HTTP POST - Create Record
 
