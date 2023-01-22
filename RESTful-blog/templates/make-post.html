@@ -4,6 +4,7 @@
 {% include "header.html" %}
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/edit-bg.jpg')}}')">
+
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -14,17 +15,29 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
   </header>
 
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         
-          <!-- This is where the form will go -->
+        <div>
+         <form method="post">
+            <p>{{ form.title.label() }} <br>{{form.title(size=65)}}</p>
+            <p>{{ form.subtitle.label() }} <br>{{form.subtitle(size=65)}}</p>
+            <p>{{ form.author.label() }} <br>{{form.author(size=65)}}</p>
+            <p>{{ form.img_url.label() }} <br>{{form.img_url(size=65)}}</p>
+            <p>{{ form.body.label() }} <br>{{form.body(size=65)}}</p>
+            <p>{{ form.submit() }} </p>
+
+        </form>
+           {{ ckeditor.load() }}
+           {{ ckeditor.config(name='body') }}
 
       </div>
     </div>
+  </div>
   </div>
 
 {% include "footer.html" %}
