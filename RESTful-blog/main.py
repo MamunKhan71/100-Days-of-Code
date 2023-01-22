@@ -1,3 +1,4 @@
+from flask import request
 from flask import Flask, render_template, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -61,6 +62,7 @@ def show_post(index):
 #     return render_template("about.html")
 #
 #
+
 @app.route("/edit/<int:post_id>")
 def edit_post(post_id):
     return render_template("about.html")
@@ -68,9 +70,12 @@ def edit_post(post_id):
 # def contact():
 #     return render_template("contact.html")
 
-@app.route('/new_post')
+@app.route('/new_post', methods=["GET","POST"])
 def new_post():
     form = CreatePostForm()
+    if request.method == "POST":
+        data = request.args.get('ckeditor')
+        print(data)
     return render_template("make-post.html", form=form)
 
 if __name__ == "__main__":
