@@ -69,9 +69,11 @@ def show_post(index):
     return render_template("post.html", post=requested_post)
 
 
-# @app.route("/about")
-# def about():
-#     return render_template("about.html")
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 #
 #
 
@@ -80,9 +82,10 @@ def edit_post(post_id):
     return render_template("about.html")
 
 
-# @app.route("/contact")
-# def contact():
-#     return render_template("contact.html")
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
 
 @app.route('/new_post', methods=["GET", "POST"])
 def new_post():
