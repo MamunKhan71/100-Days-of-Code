@@ -8,9 +8,11 @@ from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 
 app = Flask(__name__)
+ckeditor = CKEditor()
+ckeditor.init_app(app)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config['CKEDITOR_PKG_TYPE'] = 'standard'
-ckeditor = CKEditor(app)
+
 Bootstrap(app)
 
 ##CONNECT TO DB
@@ -36,8 +38,10 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField("Subtitle", validators=[DataRequired()])
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = StringField("Blog Content", validators=[DataRequired()])
+    body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
+
+
 
 
 @app.route('/')
@@ -66,17 +70,22 @@ def show_post(index):
 @app.route("/edit/<int:post_id>")
 def edit_post(post_id):
     return render_template("about.html")
+
+
 # @app.route("/contact")
 # def contact():
 #     return render_template("contact.html")
 
-@app.route('/new_post', methods=["GET","POST"])
+@app.route('/new_post', methods=["GET", "POST"])
 def new_post():
     form = CreatePostForm()
     if request.method == "POST":
-        data = request.args.get('ckeditor')
+        title = request.form.get('title')
+        data = request.form.get('body')
         print(data)
+        print(title)
     return render_template("make-post.html", form=form)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

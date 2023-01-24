@@ -24,6 +24,7 @@
         
         <div>
          <form method="post">
+
             <p>{{ form.title.label() }} <br>{{form.title(size=65)}}</p>
             <p>{{ form.subtitle.label() }} <br>{{form.subtitle(size=65)}}</p>
             <p>{{ form.author.label() }} <br>{{form.author(size=65)}}</p>
@@ -32,8 +33,8 @@
             <p>{{ form.submit(class="btn btn-primary") }} </p>
 
         </form>
-           {{ ckeditor.load() }}
-           {{ ckeditor.config(name='body') }}
+            {{ckeditor.load()}}
+<!--            {{ckeditor.config(name='body')}}-->
 
       </div>
     </div>
