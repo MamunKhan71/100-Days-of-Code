@@ -1,3 +1,5 @@
+import datetime
+
 from flask import request
 from flask import Flask, render_template, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
@@ -23,13 +25,21 @@ db = SQLAlchemy(app)
 
 ##CONFIGURE TABLE
 class BlogPost(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(250), nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
+
+    def __init__(self, title, subtitle, body, author, img_url):
+        self.title = title
+        self.subtitle = subtitle
+        self.date = datetime.date.today()
+        self.body = body
+        self.author = author
+        self.img_url = img_url
 
 
 ##WTForm
@@ -40,8 +50,6 @@ class CreatePostForm(FlaskForm):
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
-
-
 
 
 @app.route('/')
@@ -81,9 +89,14 @@ def new_post():
     form = CreatePostForm()
     if request.method == "POST":
         title = request.form.get('title')
-        data = request.form.get('body')
-        print(data)
-        print(title)
+        subtitle = request.form.get('subtitle')
+        author = request.form.get('author')
+        img_url = request.form.get('img_url')
+        body = request.form.get('body')
+        blg_post = BlogPost(title=title, subtitle=subtitle, author=author, img_url=img_url, body=body)
+        db.session.add(blg_post)
+        db.session.commit()
+        print("Data added successfully!")
     return render_template("make-post.html", form=form)
 
 
