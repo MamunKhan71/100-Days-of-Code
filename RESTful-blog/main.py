@@ -79,7 +79,7 @@ def about():
 
 @app.route("/edit/<int:post_id>")
 def edit_post(post_id):
-    return render_template("about.html")
+    return render_template("edit.html", pid=post_id)
 
 
 @app.route("/contact")
