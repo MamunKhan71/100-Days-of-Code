@@ -1,10 +1,10 @@
 import datetime
-
 from flask import request
 from flask import Flask, render_template, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from markupsafe import Markup
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
@@ -92,7 +92,7 @@ def new_post():
         subtitle = request.form.get('subtitle')
         author = request.form.get('author')
         img_url = request.form.get('img_url')
-        body = request.form.get('body')
+        body = Markup(request.form.get('body'))
         blg_post = BlogPost(title=title, subtitle=subtitle, author=author, img_url=img_url, body=body)
         db.session.add(blg_post)
         db.session.commit()
