@@ -79,7 +79,7 @@ def about():
 
 @app.route("/edit/<int:post_id>")
 def edit_post(post_id):
-    return render_template("edit.html", pid=post_id)
+    return render_template("make-post.html", pid=post_id)
 
 
 @app.route("/contact")
@@ -100,7 +100,8 @@ def new_post():
         db.session.add(blg_post)
         db.session.commit()
         print("Data added successfully!")
-    return render_template("make-post.html", form=form)
+    return render_template("make-post.html", form=form, pid=None)
+
 
 
 if __name__ == "__main__":
