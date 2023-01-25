@@ -80,7 +80,8 @@ def about():
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 def edit_post(post_id):
     new_posts = db.session.query(BlogPost).get(post_id)
-    edit_form = CreatePostForm(title=new_posts.title, subtitle=new_posts.subtitle, img_url=new_posts.img_url,author=new_posts.author,
+    edit_form = CreatePostForm(title=new_posts.title, subtitle=new_posts.subtitle, img_url=new_posts.img_url,
+                               author=new_posts.author,
                                body=new_posts.body)
     if request.method == "POST":
         new_posts.title = request.form.get('title')
@@ -114,6 +115,14 @@ def new_post():
         return redirect(url_for('get_all_posts'))
 
     return render_template("make-post.html", form=form, edit_post=False)
+
+
+@app.route('/delete/<int:post_id>')
+def delete(post_id):
+    data = db.session.query(BlogPost).get(post_id)
+    db.session.delete(data)
+    db.session.commit()
+    return redirect(url_for('get_all_posts'))
 
 
 if __name__ == "__main__":
