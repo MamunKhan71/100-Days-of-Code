@@ -77,11 +77,22 @@ def about():
 #
 #
 
-@app.route("/edit-post/<int:post_id>")
+@app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 def edit_post(post_id):
     post = db.session.query(BlogPost).get(post_id)
     edit_form = CreatePostForm(title=post.title, subtitle=post.subtitle, img_url=post.img_url,author=post.author,
                                body=post.body)
+    if request.method == "POST":
+        post.title = request.form.get('title')
+        post.subtitle = request.form.get('subtitle')
+        post.img_url = request.form.get('img_url')
+        post.author = request.form.get('author')
+        post.body = request.form.get('body')
+        db.session.commit()
+        return "<h1> Data changed Successfully!"
+
+
+
     return render_template("make-post.html", pid=post_id, form=edit_form, is_edit=True)
 
 
