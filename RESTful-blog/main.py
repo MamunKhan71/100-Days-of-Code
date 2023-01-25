@@ -77,9 +77,12 @@ def about():
 #
 #
 
-@app.route("/edit/<int:post_id>")
+@app.route("/edit-post/<int:post_id>")
 def edit_post(post_id):
-    return render_template("make-post.html", pid=post_id, form=None)
+    post = db.session.query(BlogPost).get(post_id)
+    edit_form = CreatePostForm(title=post.title, subtitle=post.subtitle, img_url=post.img_url,author=post.author,
+                               body=post.body)
+    return render_template("make-post.html", pid=post_id, form=edit_form, is_edit=True)
 
 
 @app.route("/contact")
@@ -101,7 +104,6 @@ def new_post():
         db.session.commit()
         print("Data added successfully!")
     return render_template("make-post.html", form=form, pid=None)
-
 
 
 if __name__ == "__main__":
