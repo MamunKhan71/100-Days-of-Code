@@ -111,8 +111,9 @@ def new_post():
         blg_post = BlogPost(title=title, subtitle=subtitle, author=author, img_url=img_url, body=body)
         db.session.add(blg_post)
         db.session.commit()
-        print("Data added successfully!")
-    return render_template("make-post.html", form=form, pid=None)
+        return redirect(url_for('get_all_posts'))
+
+    return render_template("make-post.html", form=form, edit_post=False)
 
 
 if __name__ == "__main__":
