@@ -42,8 +42,13 @@ def register():
         name = request.form.get('name')
         email = request.form.get('email')
         password = request.form.get('password')
-        new_data = User(name=name, email=email, password=password)
-        print(f"{name}{email}{password}")
+        new_data = User(
+            name=name,
+            email=email,
+            password=password
+        )
+        db.session.add(new_data)
+        db.session.commit()
 
     return render_template("register.html")
 
