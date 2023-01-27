@@ -153,6 +153,5 @@ def delete(cafe_id):
         return jsonify(error="Sorry that method is not allowed. Make sure you have the right API-KEY!")
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
