@@ -15,7 +15,6 @@ app.config['UPLOAD_FOLDER'] = 'static/files'
 db = SQLAlchemy(app)
 
 
-##CREATE TABLE IN DB
 class User(UserMixin, db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
