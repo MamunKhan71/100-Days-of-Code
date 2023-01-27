@@ -29,7 +29,6 @@ class User(UserMixin, db.Model):
         self.password = password
 
 
-# Line below only required once, when creating DB.
 with app.app_context():
     db.create_all()
 
@@ -44,7 +43,7 @@ def register():
     if request.method == "POST":
         name = request.form.get('name')
         email = request.form.get('email')
-        password = werkzeug.security.generate_password_hash(password=request.form.get('password'), method='pbkdf2:sha256', salt_length=8)
+        password = generate_password_hash(password=request.form.get('password'), method='pbkdf2:sha256', salt_length=8)
 
         new_data = User(
             name=name,
@@ -62,8 +61,8 @@ def register():
 def login():
     if request.method == "POST":
         query = db.session.query(User).filter_by(email=request.form.get('email')).first()
-        if werkzeug.security.check_password_hash(pwhash=query.password, password=request.form.get('password')):
-            return render_template("secrets.html", name=query.name)
+        if check_password_hash(pwhash=query.password, password=request.form.get('password')):
+
         else:
             return "Wrong Password!"
     return render_template("login.html")
