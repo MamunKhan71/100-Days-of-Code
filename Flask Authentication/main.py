@@ -1,10 +1,11 @@
 import os.path
 
+import flask
 import werkzeug.security
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user, login_manager
 
 app = Flask(__name__)
 
@@ -13,6 +14,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Python/100-Days-of-Code/Fl
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/files'
 db = SQLAlchemy(app)
+login = LoginManager()
+login.init_app(app)
+
+
+@login.user_loader
+def user_loader(user_id):
+    try:
+        return User.query.get(int(user_id))
+    except ValueError:
+        return None
 
 
 class User(UserMixin, db.Model):
@@ -51,7 +62,8 @@ def register():
         )
         db.session.add(new_data)
         db.session.commit()
-        return redirect(url_for('login'))
+        login_user(new_data)
+        return redirect(url_for('secrets'))
 
     return render_template("register.html")
 
@@ -61,20 +73,29 @@ def login():
     if request.method == "POST":
         query = db.session.query(User).filter_by(email=request.form.get('email')).first()
         if check_password_hash(pwhash=query.password, password=request.form.get('password')):
-
+            new_data = User(
+                name=query.name,
+                email=query.email,
+                password=query.password
+            )
+            login_user(new_data)
+            return redirect(url_for('secrets'))
         else:
             return "Wrong Password!"
     return render_template("login.html")
 
 
 @app.route('/secrets')
+@login_required
 def secrets():
     return render_template("secrets.html")
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/download')
@@ -84,5 +105,7 @@ def download():
         return send_from_directory(app.config['UPLOAD_FOLDER'], 'cheat_sheet.pdf')
     else:
         return "File Not Found"
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
