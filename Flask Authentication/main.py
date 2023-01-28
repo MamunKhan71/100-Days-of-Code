@@ -1,7 +1,7 @@
 import os
 import time
 
-import flask
+import flask, flash
 import werkzeug.security
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -55,7 +55,6 @@ def register():
         name = request.form.get('name')
         email = request.form.get('email')
         password = generate_password_hash(password=request.form.get('password'), method='pbkdf2:sha256', salt_length=8)
-
         new_data = User(
             name=name,
             email=email,
@@ -76,10 +75,11 @@ def login():
         query = db.session.query(User).filter_by(email=request.form.get('email')).first()
         if check_password_hash(pwhash=query.password, password=request.form.get('password')):
             login_user(query)
-            flask.flash('login Successful!')
+            flash('Logged in successfully.')
             time.sleep(1)
             return redirect(url_for('secrets'))
         else:
+            error = 'Invalid User ID or Password!'
             return "Wrong Password!"
     return render_template("login.html")
 
@@ -94,6 +94,7 @@ def secrets():
 @login_required
 def logout():
     logout_user()
+    flask.flash('Logout successfully.')
     return redirect(url_for('home'))
 
 
