@@ -1,4 +1,5 @@
-import os.path
+import os
+import time
 
 import flask
 import werkzeug.security
@@ -63,6 +64,7 @@ def register():
         db.session.add(new_data)
         db.session.commit()
         login_user(new_data)
+        flask.flash("Login Successful!")
         return redirect(url_for('secrets'))
 
     return render_template("register.html")
@@ -73,12 +75,9 @@ def login():
     if request.method == "POST":
         query = db.session.query(User).filter_by(email=request.form.get('email')).first()
         if check_password_hash(pwhash=query.password, password=request.form.get('password')):
-            new_data = User(
-                name=query.name,
-                email=query.email,
-                password=query.password
-            )
-            login_user(new_data)
+            login_user(query)
+            flask.flash('login Successful!')
+            time.sleep(1)
             return redirect(url_for('secrets'))
         else:
             return "Wrong Password!"
