@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Flask Authentication</title>
+{% with message = get_flashed_message() %}
+{% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+{% block body %} {% endblock %}
+</html>

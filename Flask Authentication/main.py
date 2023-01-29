@@ -71,6 +71,7 @@ def register():
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
+    error = None
     if request.method == "POST":
         query = db.session.query(User).filter_by(email=request.form.get('email')).first()
         if check_password_hash(pwhash=query.password, password=request.form.get('password')):
@@ -79,9 +80,11 @@ def login():
             time.sleep(1)
             return redirect(url_for('secrets'))
         else:
+            flash('Logged in successfully.')
+
             error = 'Invalid User ID or Password!'
             return "Wrong Password!"
-    return render_template("login.html")
+    return render_template('login.html', error=error)
 
 
 @app.route('/secrets')
