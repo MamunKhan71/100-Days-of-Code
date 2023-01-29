@@ -1,9 +1,12 @@
 {% extends "base.html" %}
+{% extends "layout.html" %}
 {% block content %}
-
+{% block body %}
 <div class="box">
     <h1>Login</h1>
-
+    {% if error %}
+        <p class=error><strong>Error: {{error}}</strong></p>
+    {% endif %}
     <form action="{{ url_for('login') }}" method="post">
         <input type="text" name="email" placeholder="Email" required="required"/>
         <input type="password" name="password" placeholder="Password" required="required"/>
@@ -11,4 +14,5 @@
     </form>
 </div>
 
+{% endblock %}
 {% endblock %}
