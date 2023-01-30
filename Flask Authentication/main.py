@@ -55,16 +55,20 @@ def register():
         name = request.form.get('name')
         email = request.form.get('email')
         password = generate_password_hash(password=request.form.get('password'), method='pbkdf2:sha256', salt_length=8)
-        new_data = User(
-            name=name,
-            email=email,
-            password=password
-        )
-        db.session.add(new_data)
-        db.session.commit()
-        login_user(new_data)
-        flask.flash("Login Successful!")
-        return redirect(url_for('secrets'))
+        dbQuery = db.session.query(User).filter_by(email=email).first()
+        if dbQuery:
+            flash("Email is already registered! Login Instead!")
+            return redirect(url_for('register'))
+        else:
+            new_data = User(
+                name=name,
+                email=email,
+                password=password
+            )
+            db.session.add(new_data)
+            db.session.commit()
+            login_user(new_data)
+            return redirect(url_for('secrets'))
 
     return render_template("register.html")
 
