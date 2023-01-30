@@ -73,18 +73,20 @@ def register():
 def login():
     error = None
     if request.method == "POST":
-        query = db.session.query(User).filter_by(email=request.form.get('email')).first()
-        if check_password_hash(pwhash=query.password, password=request.form.get('password')):
-            login_user(query)
-            flash('Logged in successfully.')
-            time.sleep(1)
-            return redirect(url_for('secrets'))
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = db.session.query(User).filter_by(email=request.form.get('email')).first()
+        if not user:
+            flash("Email Doesn't Exist!")
+            return redirect(url_for('login'))
+        elif not check_password_hash(pwhash=user.password, password=request.form.get('password')):
+            flash("Invalid Password!")
+            return redirect(url_for('login'))
         else:
-            flash('Logged in successfully.')
+            login_user(user)
+            return redirect(url_for('secrets'))
 
-            error = 'Invalid User ID or Password!'
-            return "Wrong Password!"
-    return render_template('login.html', error=error)
+    return render_template('login.html')
 
 
 @app.route('/secrets')
