@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm
+from forms import CreatePostForm, RegisterForm
 from flask_gravatar import Gravatar
 
 app = Flask(__name__)
@@ -31,7 +31,9 @@ class BlogPost(db.Model):
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
-db.create_all()
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/')
@@ -42,7 +44,8 @@ def get_all_posts():
 
 @app.route('/register')
 def register():
-    return render_template("register.html")
+    form = RegisterForm()
+    return render_template("register.html", form=form)
 
 
 @app.route('/login')
