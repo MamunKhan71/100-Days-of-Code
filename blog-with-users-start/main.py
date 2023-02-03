@@ -6,18 +6,27 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, RegisterForm
+from forms import CreatePostForm, RegisterForm, Login
 from flask_gravatar import Gravatar
-
+login_manager = LoginManager()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
+login_manager.init_app(app)
 Bootstrap(app)
 
+
+@login_manager.user_loader
+def user_loader(user_id):
+    try:
+        return BlogUser.query.get(int(user_id))
+    except ValueError:
+        return None
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Python/100-Days-of-Code/blog-with-users-start/blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
 
 
 ##CONFIGURE TABLES
@@ -41,7 +50,7 @@ class BlogPost(db.Model):
         self.img_url = img_url
 
 
-class BlogUser(db.Model):
+class BlogUser(UserMixin,db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(250), nullable=False)
@@ -72,16 +81,30 @@ def register():
         user = BlogUser(name=request.form.get("name"), email=request.form.get("email"), password=password)
         db.session.add(user)
         db.session.commit()
+        login_user(user)
+        return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form)
 
 
-@app.route('/login')
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    form = Login()
+    if request.method == "POST":
+        email = form.email.data
+        password = form.password.data
+        ifExist = db.session.query(BlogUser).filter_by(email=email).first()
+        if ifExist and check_password_hash(pwhash=ifExist.password, password=password):
+            print("Welcome")
+            login_user(ifExist)
+            if ifExist.is_active:
+                print("Active")
+
+    return render_template("login.html", form=form)
 
 
 @app.route('/logout')
 def logout():
+    logout_user()
     return redirect(url_for('get_all_posts'))
 
 
