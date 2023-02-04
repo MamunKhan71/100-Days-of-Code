@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, RegisterForm, Login
 from flask_gravatar import Gravatar
+
 login_manager = LoginManager()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -22,11 +23,12 @@ def user_loader(user_id):
         return BlogUser.query.get(int(user_id))
     except ValueError:
         return None
+
+
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Python/100-Days-of-Code/blog-with-users-start/blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
 
 
 ##CONFIGURE TABLES
@@ -50,7 +52,7 @@ class BlogPost(db.Model):
         self.img_url = img_url
 
 
-class BlogUser(UserMixin,db.Model):
+class BlogUser(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(250), nullable=False)
@@ -77,12 +79,18 @@ def get_all_posts():
 def register():
     form = RegisterForm()
     if request.method == "POST":
-        password = generate_password_hash(request.form.get("password"), method="pbkdf2:sha256", salt_length=8)
-        user = BlogUser(name=request.form.get("name"), email=request.form.get("email"), password=password)
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        return redirect(url_for('get_all_posts'))
+        email = request.form.get('email')
+        userLookup = (db.session.query(BlogUser).filter_by(email=email).first())
+        if userLookup:
+            print('User already exist! Please Log in!')
+            return redirect(url_for('login'))
+        else:
+            password = generate_password_hash(request.form.get("password"), method="pbkdf2:sha256", salt_length=8)
+            user = BlogUser(name=request.form.get("name"), email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form)
 
 
