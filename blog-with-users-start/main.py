@@ -77,12 +77,13 @@ def get_all_posts():
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
+
     form = RegisterForm()
     if request.method == "POST":
         email = request.form.get('email')
         userLookup = (db.session.query(BlogUser).filter_by(email=email).first())
         if userLookup:
-            print('User already exist! Please Log in!')
+            flash('User already exist! Please Log in!', 'info')
             return redirect(url_for('login'))
         else:
             password = generate_password_hash(request.form.get("password"), method="pbkdf2:sha256", salt_length=8)
@@ -102,10 +103,11 @@ def login():
         password = form.password.data
         ifExist = db.session.query(BlogUser).filter_by(email=email).first()
         if ifExist and check_password_hash(pwhash=ifExist.password, password=password):
-            print("Welcome")
             login_user(ifExist)
-            if ifExist.is_active:
-                print("Active")
+        elif ifExist and not check_password_hash(pwhash=ifExist.password, password=password):
+            flash('Invalid password! please try again!', 'error')
+        elif not ifExist:
+            flash("Invalid email! please try again!", 'error')
 
     return render_template("login.html", form=form)
 
