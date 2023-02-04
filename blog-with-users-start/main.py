@@ -1,4 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from functools import wraps
+
+from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
@@ -77,7 +79,6 @@ def get_all_posts():
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
-
     form = RegisterForm()
     if request.method == "POST":
         email = request.form.get('email')
@@ -116,6 +117,16 @@ def login():
     return render_template("login.html", form=form, logged_in=current_user.is_authenticated)
 
 
+def admin_only(function):
+    @wraps(function)
+    def decorated_function(*args, **kwargs):
+        if current_user.id != 1:
+            return abort(403)
+        return function(*args, **kwargs)
+
+    return decorated_function
+
+
 @app.route('/logout')
 def logout():
     logout_user()
@@ -139,6 +150,7 @@ def contact():
 
 
 @app.route("/new-post", methods=["GET", "POST"])
+@admin_only
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
@@ -152,10 +164,11 @@ def add_new_post():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for("get_all_posts"))
-    return render_template("make-post.html", form=form)
+    return render_template("make-post.html", form=form, current_user=current_user)
 
 
 @app.route("/edit-post/<int:post_id>")
+@admin_only
 def edit_post(post_id):
     post = BlogPost.query.get(post_id)
     edit_form = CreatePostForm(
@@ -178,6 +191,7 @@ def edit_post(post_id):
 
 
 @app.route("/delete/<int:post_id>")
+@admin_only
 def delete_post(post_id):
     post_to_delete = BlogPost.query.get(post_id)
     db.session.delete(post_to_delete)
