@@ -72,7 +72,7 @@ with app.app_context():
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    return render_template("index.html", all_posts=posts)
+    return render_template("index.html", all_posts=posts, logged_in=current_user.is_authenticated)
 
 
 @app.route('/register', methods=["POST", "GET"])
@@ -87,12 +87,16 @@ def register():
             return redirect(url_for('login'))
         else:
             password = generate_password_hash(request.form.get("password"), method="pbkdf2:sha256", salt_length=8)
-            user = BlogUser(name=request.form.get("name"), email=email, password=password)
+            user = BlogUser(
+                name=request.form.get("name"),
+                email=email,
+                password=password,
+            )
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            return redirect(url_for('get_all_posts'))
-    return render_template("register.html", form=form)
+            return redirect(url_for('get_all_posts', logged_in=current_user.is_authenticated))
+    return render_template("register.html", form=form, logged_in=current_user.is_authenticated)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -109,7 +113,7 @@ def login():
         elif not ifExist:
             flash("Invalid email! please try again!", 'error')
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, logged_in=current_user.is_authenticated)
 
 
 @app.route('/logout')
@@ -121,17 +125,17 @@ def logout():
 @app.route("/post/<int:post_id>")
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post)
+    return render_template("post.html", post=requested_post, logged_in=current_user.is_authenticated)
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/new-post", methods=["GET", "POST"])
