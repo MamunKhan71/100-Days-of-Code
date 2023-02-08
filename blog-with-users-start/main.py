@@ -51,10 +51,7 @@ class BlogUser(UserMixin, db.Model):
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True)
-
-    # Create Foreign Key, "users.id" the users refers to the tablename of User.
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # Create reference to the User object, the "posts" refers to the posts protperty in the User class.
     author = relationship("BlogUser", back_populates="posts")
 
     title = db.Column(db.String(250), unique=True, nullable=False)
