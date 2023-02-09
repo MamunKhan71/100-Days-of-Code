@@ -27,13 +27,11 @@ def user_loader(user_id):
         return None
 
 
-##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Python/100-Days-of-Code/blog-with-users-start/blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///E:/100 Days of Code/blog-with-users-start/blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-##CONFIGURE TABLES
 class BlogUser(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
