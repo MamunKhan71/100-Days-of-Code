@@ -29,7 +29,7 @@ sets tend to have more or fewer parts than newer sets?</li>
 
 <img src="https://i.imgur.com/49FNOHj.jpg">
 
-# Import Statements
+##### Import Statements
 """
 
 import pandas as pd
@@ -42,48 +42,46 @@ data = pd.read_csv("/content/data/colors.csv")
 
 data.name.nunique()
 
-data.
-
-
+data.is_trans.value_counts()
 
 """**Challenge**: Find the number of transparent colours where <code>is_trans == 't'</code> versus the number of opaque colours where <code>is_trans == 'f'</code>. See if you can accomplish this in two different ways."""
 
+data.groupby('is_trans').count()
 
 
 
-
-"""**Challenge**: Change this into an h3 section heading: Understanding LEGO Themes vs. LEGO Sets
+"""###Understanding **LEGO** Themes vs. ***LEGO Sets***
 
 Walk into a LEGO store and you will see their products organised by theme. Their themes include Star Wars, Batman, Harry Potter and many more.
 
-**Challenge**: Display this image: https://i.imgur.com/aKcwkSx.png
+<img src="https://i.imgur.com/aKcwkSx.png">
 
 A lego set is a particular box of LEGO or product. Therefore, a single theme typically has many different sets.
 
-**Challenge**: Display this image https://i.imgur.com/whB1olq.png
+<img src="https://i.imgur.com/whB1olq.png ">
 
 The <code>sets.csv</code> data contains a list of sets over the years and the number of parts that each of these sets contained.
 
 **Challenge**: Read the sets.csv data and take a look at the first and last couple of rows.
 """
 
+sets = pd.read_csv("/content/data/sets.csv")
 
+sets.head()
 
-
-
-
+sets.tail()
 
 """**Challenge**: In which year were the first LEGO sets released and what were these sets called?"""
 
-
+sets.sort_values("year")
 
 """**Challenge**: How many different sets did LEGO sell in their first year? How many types of LEGO products were on offer in the year the company started?"""
 
-
+sets[sets["year"] == 1949]
 
 """**Challenge**: Find the top 5 LEGO sets with the most number of parts. """
 
-
+sets.sort_values("num_parts", ascending=False).head()
 
 """**Challenge**: Use <code>.groupby()</code> and <code>.count()</code> to show the number of LEGO sets released year-on-year. How do the number of sets released in 1955 compare to the number of sets released in 2019? """
 
