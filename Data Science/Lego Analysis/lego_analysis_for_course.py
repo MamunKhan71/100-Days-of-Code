@@ -28,12 +28,17 @@ sets tend to have more or fewer parts than newer sets?</li>
 [Rebrickable](https://rebrickable.com/downloads/) has compiled data on all the LEGO pieces in existence. I recommend you use download the .csv files provided in this lesson.
 
 <img src="https://i.imgur.com/49FNOHj.jpg">
-
-##### Import Statements
 """
 
+
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+"""##### Import Statements"""
+
 import pandas as pd
-data = pd.read_csv("/content/data/colors.csv")
+data = pd.read_csv("/content/drive/MyDrive/100 Days of Code/Lego/data/colors.csv")
 
 """# Data Exploration
 
@@ -65,7 +70,7 @@ The <code>sets.csv</code> data contains a list of sets over the years and the nu
 **Challenge**: Read the sets.csv data and take a look at the first and last couple of rows.
 """
 
-sets = pd.read_csv("/content/data/sets.csv")
+sets = pd.read_csv("/content/drive/MyDrive/100 Days of Code/Lego/data/sets.csv")
 
 sets.head()
 
@@ -85,23 +90,25 @@ sets.sort_values("num_parts", ascending=False).head()
 
 """**Challenge**: Use <code>.groupby()</code> and <code>.count()</code> to show the number of LEGO sets released year-on-year. How do the number of sets released in 1955 compare to the number of sets released in 2019? """
 
+sets_by_year = sets.groupby("year").count()
 
-
-
+sets_by_year.set_num.head()
 
 """**Challenge**: Show the number of LEGO releases on a line chart using Matplotlib. <br>
 <br>
 Note that the .csv file is from late 2020, so to plot the full calendar years, you will have to exclude some data from your chart. Can you use the slicing techniques covered in Day 21 to avoid plotting the last two years? The same syntax will work on Pandas DataFrames. 
 """
 
+import matplotlib.pyplot as plt
 
-
-
+plt.plot(sets_by_year.index[:-2], sets_by_year.set_num[:-2])
 
 """### Aggregate Data with the Python .agg() Function
 
 Let's work out the number of different themes shipped by year. This means we have to count the number of unique theme_ids per calendar year.
 """
+
+sets.head()
 
 
 
