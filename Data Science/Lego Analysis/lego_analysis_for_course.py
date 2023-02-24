@@ -114,7 +114,14 @@ themes_by_year.rename(columns={'theme_id':'nr_theme'}, inplace= True)
 
 themes_by_year.tail()
 
-plt.plot(themes_by_year.index[:-2], themes_by_year.nr_theme[:-2])
+ax1 = plt.gca()
+ax2 = ax1.twinx()
+ax1.plot(sets_by_year.index[:-2], sets_by_year.set_num[:-2])
+ax2.plot(themes_by_year.index[:-2], themes_by_year.nr_theme[:-2])
+
+ax1.set_xlabel('Year')
+ax1.set_ylabel('Number of Sets', color='green')
+ax2.set_ylabel('Number of Themes', color='blue')
 
 """**Challenge**: Plot the number of themes released by year on a line chart. Only include the full calendar years (i.e., exclude 2020 and 2021). """
 
@@ -135,12 +142,16 @@ plt.plot(themes_by_year.index[:-2], themes_by_year.nr_theme[:-2])
 **Challenge**: Has the size and complexity of LEGO sets increased over time based on the number of parts? Plot the average number of parts over time using a Matplotlib scatter plot. See if you can use the [scatter plot documentation](https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.scatter.html) before I show you the solution. Do you spot a trend in the chart?
 """
 
+parts_per_set = sets.groupby('year').agg({'num_parts' : pd.Series.mean})
 
+plt.scatter(parts_per_set.index[:-2], parts_per_set.num_parts[:-2])
 
 """### Number of Sets per LEGO Theme
 
 LEGO has licensed many hit franchises from Harry Potter to Marvel Super Heros to many others. But which theme has the largest number of individual sets?
 """
+
+
 
 
 
