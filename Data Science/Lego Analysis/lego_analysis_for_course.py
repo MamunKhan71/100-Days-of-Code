@@ -151,9 +151,9 @@ plt.scatter(parts_per_set.index[:-2], parts_per_set.num_parts[:-2])
 LEGO has licensed many hit franchises from Harry Potter to Marvel Super Heros to many others. But which theme has the largest number of individual sets?
 """
 
+set_theme_count = sets["theme_id"].value_counts()
 
-
-
+set_theme_count[:5]
 
 """**Challenge** Use what you know about HTML markup and tags to display the database schema: https://i.imgur.com/Sg4lcjx.png
 
@@ -164,15 +164,18 @@ The themes.csv file has the actual theme names. The sets .csv has <code>theme_id
 **Challenge**: Explore the themes.csv. How is it structured? Search for the name 'Star Wars'. How many <code>id</code>s correspond to this name in the themes.csv? Now use these <code>id</code>s and find the corresponding the sets in the sets.csv (Hint: you'll need to look for matches in the <code>theme_id</code> column)
 """
 
+themes = pd.read_csv("/content/drive/MyDrive/100 Days of Code/Lego/data/themes.csv")
+themes.head()
 
+themes[themes.name == "Star Wars"]
 
+sets[sets.theme_id == 209]
 
+set_theme_count = sets['theme_id'].value_counts()
+set_theme_count[:5]
 
-
-
-
-
-
+set_theme_count = pd.DataFrame({'id':set_theme_count.index, 'set_count': set_theme_count.values})
+set_theme_count.head()
 
 """### Merging (i.e., Combining) DataFrames based on a Key
 
