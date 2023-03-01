@@ -76,6 +76,8 @@ print('Largest value for "Unemployemnt Benefits" '
 
 df_btc_price.shape
 
+df_btc_price
+
 df_btc_search.head()
 
 print(f'largest BTC News Search: {df_btc_search.BTC_NEWS_SEARCH.max()}')
@@ -115,9 +117,11 @@ df_btc_price.DATE = pd.to_datetime(df_btc_price.DATE)
 [Pandas .resample() documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html) <br>
 """
 
+df_btc_monthly = df_btc_price.resample('M', on="DATE").last()
 
+df_btc_price.tail()
 
-
+df_btc_monthly
 
 """# Data Visualisation
 
@@ -133,6 +137,33 @@ df_btc_price.DATE = pd.to_datetime(df_btc_price.DATE)
 **Challenge:** Plot the Tesla stock price against the Tesla search volume using a line chart and two different axes. Label one axis 'TSLA Stock Price' and the other 'Search Trend'.
 """
 
+df_tesla
+
+import matplotlib.dates as mdates
+years = mdates.YearLocator()
+months = mdates.MonthLocator()
+years_fmt = mdates.DateFormatter("%Y")
+
+plt.figure(figsize=(14,8), dpi=120)
+plt.title('Tesla Web Search', fontsize=18)
+plt.xticks(rotation=45)
+ax1 = plt.gca()
+ax2 = plt.twinx()
+ax1.set_ylim([0,600])
+ax1.set_xlim([df_tesla.MONTH.min(), df_tesla.MONTH.max()])
+ax1.set_ylabel('TSLA STOCK PRICE', color="#E6232E")
+ax2.set_ylabel("SEARCH TREND", color="skyblue")
+ax1.xaxis.set_major_locator(years)
+ax1.xaxis.set_major_formatter(years_fmt)
+ax1.xaxis.set_minor_locator(months)
+ax1.set_xlabel("GRAPH")
+ax1.plot(df_tesla.MONTH, df_tesla.TSLA_USD_CLOSE, color="#E6232E", linewidth=3)
+ax2.plot(df_tesla.MONTH, df_tesla.TSLA_WEB_SEARCH, color="skyblue", linewidth=3)
+
+plt.show()
+
+
+
 
 
 """**Challenge**: Add colours to style the chart. This will help differentiate the two lines and the axis labels. Try using one of the blue [colour names](https://matplotlib.org/3.1.1/gallery/color/named_colors.html) for the search volume and a HEX code for a red colour for the stock price. 
@@ -141,7 +172,25 @@ df_btc_price.DATE = pd.to_datetime(df_btc_price.DATE)
 Hint: you can colour both the [axis labels](https://matplotlib.org/3.3.2/api/text_api.html#matplotlib.text.Text) and the [lines](https://matplotlib.org/3.2.1/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D) on the chart using keyword arguments (kwargs).  
 """
 
+df_btc_search
 
+plt.figure(figsize=(14,8), dpi=120)
+plt.title('Bitcoin News Search vs Resampled Price', fontsize=18)
+plt.xticks(rotation=45)
+ax1 = plt.gca()
+ax2 = plt.twinx()
+ax1.set_ylabel('BTC Price', color="#E6232E")
+ax2.set_ylabel("SEARCH TREND", color="skyblue")
+ax1.xaxis.set_major_locator(years)
+ax1.xaxis.set_major_formatter(years_fmt)
+ax1.xaxis.set_minor_locator(months)
+ax1.set_ylim(bottom=0, top=15000)
+ax1.set_xlim([df_btc_monthly.index.min(), df_btc_monthly.index.max()])
+
+ax1.plot(df_btc_monthly.index, df_btc_monthly.CLOSE, color="#E6232E", linewidth=3, linestyle='--')
+ax2.plot(df_btc_monthly.index, df_btc_search.BTC_NEWS_SEARCH, color="skyblue", linewidth=3, linestyle='--', marker='o')
+
+plt.show()
 
 """**Challenge**: Make the chart larger and easier to read. 
 1. Increase the figure size (e.g., to 14 by 8). 
@@ -185,7 +234,7 @@ Hint: you can colour both the [axis labels](https://matplotlib.org/3.3.2/api/tex
 5. Can you discern any seasonality in the searches? Is there a pattern?
 """
 
-
+plt.plot(df_unemployment.MONTH, df_unemployment.UE_BENEFITS_WEB_SEARCH)
 
 """**Challenge**: Calculate the 3-month or 6-month rolling average for the web searches. Plot the 6-month rolling average search data against the actual unemployment. What do you see in the chart? Which line moves first?
 
