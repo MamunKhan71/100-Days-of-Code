@@ -89,31 +89,37 @@ df_apps_clean.shape
 **Challenge**: Identify which apps are the highest rated. What problem might you encounter if you rely exclusively on ratings alone to determine the quality of an app?
 """
 
-
+df_max = df_apps_clean[df_apps_clean.Rating == df_apps_clean.Rating.max()]
+ df_max
 
 """# Find 5 Largest Apps in terms of Size (MBs)
 
 **Challenge**: What's the size in megabytes (MB) of the largest Android apps in the Google Play Store. Based on the data, do you think there could be limit in place or can developers make apps as large as they please? 
 """
 
-
+df_size = df_apps_clean[df_apps_clean.Size_MBs == df_apps_clean.Size_MBs.values.max()]
+df_size
 
 """# Find the 5 App with Most Reviews
 
 **Challenge**: Which apps have the highest number of reviews? Are there any paid apps among the top 50?
 """
 
-
+top_apps = df_apps_clean.sort_values('Reviews', ascending=False)
+top_apps.head()
 
 """# Plotly Pie and Donut Charts - Visualise Categorical Data: Content Ratings"""
 
+ratings = df_apps_clean.Content_Rating.value_counts()
+ratings
 
+import plotly.express as px
 
+fig = px.pie(labels=ratings.index, values=ratings.values, title="Content Rating", names=ratings.index, hole=.6)
 
+fig.update_traces(textposition='inside', textinfo='percent', textfont_size=15)
 
-
-
-
+fig.show()
 
 """# Numeric Type Conversion: Examine the Number of Installs
 
@@ -126,9 +132,10 @@ Count the number of apps at each level of installations.
 Convert the number of installations (the Installs column) to a numeric data type. Hint: this is a 2-step process. You'll have make sure you remove non-numeric characters first. 
 """
 
+df_apps_clean.head()
 
-
-
+billion_apps = df_apps_clean.info()
+billion_apps
 
 
 
