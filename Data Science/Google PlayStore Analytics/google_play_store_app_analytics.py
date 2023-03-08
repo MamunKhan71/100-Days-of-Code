@@ -147,7 +147,7 @@ df_apps_clean.Price = df_apps_clean.Price.astype(str).str.replace('$', '')
 df_apps_clean.Price = pd.to_numeric(df_apps_clean.Price)
 df_apps_clean[['App', 'Price']].sort_values('Price', ascending=False)[:20]
 
-expn_apps
+
 
 """# Find the Most Expensive Apps, Filter out the Junk, and Calculate a (ballpark) Sales Revenue Estimate
 
@@ -165,11 +165,13 @@ Add a column called 'Revenue_Estimate' to the DataFrame. This column should hold
 
 """### The most expensive apps sub $250"""
 
-
+df_apps_clean = df_apps_clean[df_apps_clean['Price'] < 250]
+df_apps_clean.sort_values('Price', ascending=False).head(5)
 
 """### Highest Grossing Paid Apps (ballpark estimate)"""
 
-
+df_apps_clean['Revenue Estimate'] = df_apps_clean.Installs.mul(df_apps_clean.Price)
+df_apps_clean.sort_values('Revenue Estimate', ascending=False).head(10)
 
 """# Plotly Bar Charts & Scatter Plots: Analysing App Categories"""
 
