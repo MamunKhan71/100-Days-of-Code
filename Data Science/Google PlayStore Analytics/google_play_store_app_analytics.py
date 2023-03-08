@@ -137,9 +137,17 @@ df_apps_clean.head()
 billion_apps = df_apps_clean.info()
 billion_apps
 
+df_apps_clean.Installs = df_apps_clean.Installs.astype(str).str.replace(',', "")
+df_apps_clean.Installs = pd.to_numeric(df_apps_clean.Installs)
+df_apps_clean[['App', 'Installs']].groupby('Installs').count()
 
+df_apps_clean
 
+df_apps_clean.Price = df_apps_clean.Price.astype(str).str.replace('$', '')
+df_apps_clean.Price = pd.to_numeric(df_apps_clean.Price)
+df_apps_clean[['App', 'Price']].sort_values('Price', ascending=False)[:20]
 
+expn_apps
 
 """# Find the Most Expensive Apps, Filter out the Junk, and Calculate a (ballpark) Sales Revenue Estimate
 
