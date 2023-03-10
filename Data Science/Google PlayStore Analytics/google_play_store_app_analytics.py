@@ -187,9 +187,18 @@ df_apps_clean.sort_values('Revenue Estimate', ascending=False).head(10)
 
 """### Horizontal Bar Chart - Most Popular Categories (Highest Downloads)"""
 
+df_apps_clean.Category.nunique()
 
+top10_category = df_apps_clean.Category.value_counts()[:10]
+top10_category
 
+bar = px.bar(x=top10_category.index, y=top10_category.values)
+bar.show()
 
+category_installs = df_apps_clean.groupby('Category').agg({'Installs': pd.Series.sum})
+category_installs.sort_values('Installs', ascending=True, inplace=True)
+
+h_bar = px.bar(x=category_installs.Installs, y =category_installs.index, orientation='h')
 
 """### Category Concentration - Downloads vs. Competition
 
