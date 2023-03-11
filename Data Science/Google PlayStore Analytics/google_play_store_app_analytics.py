@@ -197,8 +197,9 @@ bar.show()
 
 category_installs = df_apps_clean.groupby('Category').agg({'Installs': pd.Series.sum})
 category_installs.sort_values('Installs', ascending=True, inplace=True)
-
 h_bar = px.bar(x=category_installs.Installs, y =category_installs.index, orientation='h')
+h_bar.update_layout(xaxis_title='Number of downlaods', yaxis_title='Category')
+h_bar.show()
 
 """### Category Concentration - Downloads vs. Competition
 
@@ -214,7 +215,18 @@ h_bar = px.bar(x=category_installs.Installs, y =category_installs.index, orienta
 *Hint*: Use the size, hover_name and color parameters in .scatter(). To scale the yaxis, call .update_layout() and specify that the yaxis should be on a log-scale like so: yaxis=dict(type='log') 
 """
 
+newCat = df_apps_clean.groupby('Category').agg({'App': pd.Series.count, 'Installs': pd.Series.sum})
+newCat.sort_values('App', ascending=False)
 
+cat_number = df_apps_clean.groupby('Category').agg({'App': pd.Series.count})
+
+cat_merged_df = pd.merge(cat_number, category_installs, on='Category', how='inner')
+cat_merged_df.sort_values('Installs', ascending=False)
+
+new_shape = px.scatter(x=newCat.App,  y=newCat.Installs)
+new_shape.xlabel='Number of Apps'
+new_shape.ylabel="Installs"
+new_shape.show()
 
 """# Extracting Nested Data from a Column
 
