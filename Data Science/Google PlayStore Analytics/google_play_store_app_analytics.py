@@ -223,9 +223,19 @@ cat_number = df_apps_clean.groupby('Category').agg({'App': pd.Series.count})
 cat_merged_df = pd.merge(cat_number, category_installs, on='Category', how='inner')
 cat_merged_df.sort_values('Installs', ascending=False)
 
-new_shape = px.scatter(x=newCat.App,  y=newCat.Installs)
-new_shape.xlabel='Number of Apps'
-new_shape.ylabel="Installs"
+new_shape = px.scatter(
+    cat_merged_df, x='App', 
+    y='Installs', 
+    title='Category Concentration', 
+    size='App', 
+    hover_name=cat_merged_df.index, 
+    color='Installs',
+)
+new_shape.update_layout(
+    xaxis_title='Number of Apps(Lower=More Concentrated)', 
+    yaxis_title = "Installs", 
+    yaxis=dict(type='log'), 
+)
 new_shape.show()
 
 """# Extracting Nested Data from a Column
@@ -234,7 +244,13 @@ new_shape.show()
 
 """
 
+df_genres = len(df_apps_clean.Genres.unique())
+df_genres
 
+df_genres = df_apps_clean.Genres.value_counts()
+df_genres
+
+stack = df_apps_clean.Genres.str.split(';', expand=True).stack()
 
 """# Colour Scales in Plotly Charts - Competition in Genres
 
