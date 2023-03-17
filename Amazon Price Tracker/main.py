@@ -17,7 +17,7 @@ soup = BeautifulSoup(response.text, features="lxml")
 price = soup.find("span", class_="a-price-whole")
 priceFraction = soup.find("span", class_="a-price-fraction")
 priceConvert = float(f"{price.getText()}{priceFraction.getText()}")
-if priceConvert < 90:
+if priceConvert < 80:
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(user=gmail_email, password=gmail_passWord)
@@ -26,7 +26,7 @@ if priceConvert < 90:
                             msg=f"Subject:Buy Now \n\n Price is under 90$. Buy Now or "
                                 "loose at your own risk!")
 else:
-    print("Price is not under 90$")
+    print("Price is not under 80$")
 
 
 
