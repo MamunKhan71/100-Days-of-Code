@@ -1,5 +1,7 @@
 def morseDec(letters):
     match letters:
+        case "":
+            return ""
         case "/":
             return " "
         case ".-":
@@ -185,7 +187,7 @@ else:
             if i != len(userText_to_list)-1:
                 finalSplit.append("/")
     print(finalSplit)
-    for letter in finalSplit[:-1]:
+    for letter in finalSplit:
         print(letter)
         new_list_text = morseDec(letter)
         newUserList.append(new_list_text)
