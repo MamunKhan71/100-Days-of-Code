@@ -54,4 +54,12 @@ textarea{
     width: 80%;
     margin-bottom: 30px;
 }
-
+footer{
+    text-align: center;
+    background-color: whitesmoke;
+    width: 80%;
+    margin: auto;
+    border: 1px;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
