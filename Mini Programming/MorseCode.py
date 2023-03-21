@@ -176,7 +176,6 @@ if userData == "1":
 else:
     userText = input("Enter the text you want to Decode: ")
     userText_to_list = userText.split('/')
-    print(userText_to_list)
     for i, s in enumerate(userText_to_list):
         if " " in s:
             finalSplit.extend(s.split(" "))
@@ -186,9 +185,7 @@ else:
             finalSplit.append(s)
             if i != len(userText_to_list)-1:
                 finalSplit.append("/")
-    print(finalSplit)
     for letter in finalSplit:
-        print(letter)
         new_list_text = morseDec(letter)
         newUserList.append(new_list_text)
     newText = "".join(newUserList)
