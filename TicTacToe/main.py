@@ -72,6 +72,7 @@ while True:
                 print("-------------------------------------")
                 print(f"Congratulations!! {user[1]}, You Win")
                 print("-------------------------------------")
-
                 exit(0)
             i = i + 1
+        if i == 9:
+            print("Draw")
