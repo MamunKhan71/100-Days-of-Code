@@ -27,27 +27,44 @@
 # window.mainloop()
 #
 import time
+
 import keyboard
 import re
 
 text = "Type me to test your typing speed and also help building the backend algorithm."
 
 
-def speedCalculator(timeTaken, totalTyped):
-    grossSpeed = ((int(totalTyped) / 5) / (float(timeTaken) / 60))
+def speedCalculator(timeTaken, totalTyped, incorrectWord):
+    print(totalTyped)
+    print(f"found mistakes {incorrectWord}")
+    grossSpeed = (int(totalTyped) / 5) / (float(timeTaken) / 60)
+    netTime = (int(incorrectWord)/((float(timeTaken))/60))
+    netSpeed = grossSpeed - netTime
+    print(netSpeed)
     print(f"Gross Speed : {int(grossSpeed)} Words Per Minute")
+    print(f"Net Speed : {int(netSpeed)} Words Per Minute")
 
 
 def on_press(event):
     finalWord = 0
+    incorrectWord = 0
     start = time.time()
     userInput = input("")
     stop = time.time()
     totalTyped = len(userInput)
     timeTaken = f"{stop - start:.2f}"
+    actualText = text.split(" ")
+    print(len(actualText))
+    userText = userInput.split(" ")
+    loopLength = len(userText)
+    print(f"{actualText[1]} - {userText[1]}")
+    for i in range(loopLength):
+        if actualText[i] != userText[i]:
+            incorrectWord += 1
+
     print(f"Total Time Taken : {timeTaken} seconds")
     keyboard.unhook_all()
-    speedCalculator(timeTaken, totalTyped)
+    speedCalculator(timeTaken, totalTyped, incorrectWord)
 
 
 print(f"{text}\nType: ")
